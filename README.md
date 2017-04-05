@@ -51,7 +51,7 @@ Removed fallback recipes for buildcraft. This mod now unapologetically requires 
 
 Added crude physics collision and entity damage to rotors.
 
-Custom damage and death message for being killed be a rotor.
+Custom damage and death message for being killed by a rotor.
 
 Added render bounds to rotor block so block doesn't disappear when nearly off the screen.
 
