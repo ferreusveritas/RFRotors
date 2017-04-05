@@ -10,31 +10,57 @@ Compatible with Minecraft version 1.7.10. Uses Thermal Expansion's materials for
 ###Changes from the original work
 
 Much of the code has been reworked.
+
 Added configuration options for windmill height settings and wind power in the nether and the end.
+
 Rewrote config file handler to use reasonable limits.
+
 Created a rotor interface(IRotor) for the rotors.
+
 Coded the generator to be more generic and accept an IRotor interface from a TileEntity.
+
 Collapsed the 4 tiers of "windmill blocks" into a single "rotary generator".
+
 Improved texture for generator block.  Now has direction.
+
 Improved performance of wind "tunnel" calculation.
+
 Wind speed varies throughout the game day through a perlin noise function of time.
+
 Random Wind gusts.
+
 Original 4 wind rotors removed and replaced with:
+
   7x7 Sail Rotor(like a classic 4 blade dutch windmill)
+  
   7x7 Modern Rotor(resembles modern day 3 blade wind turbines)
+  
   5x5 Wooden Water Wheel Rotor(Destroyed by hot fluids)
+  
   5x5 Iron Water Wheel Rotor(Lava and High Temp fluid resistant)
+  
 Completely redone rotor models and textures while remaining true to minecraft stylization.
+
 Retextured Items.
+
 Overhauled recipes.
+
 New original metal Aerochromel alloy blend and ingot created for crafting Modern Rotor.
+
 Removed fallback recipes for buildcraft. This mod now unapologetically requires Thermal Expansion and Thermal Foundation.
+
 Added crude physics collision and entity damage to rotors.
+
 Custom damage and death message for being killed be a rotor.
+
 Added render bounds to rotor block so block doesn't disappear when nearly off the screen.
+
 Added subtick interpolation to render code for smoother rotating animations.
+
 Removed hand crank capability(May re-add later if it's worth it).
+
 Sneak-rightclick with a Buildcraft compatible wrench to remove a rotor from a generator.
+
 
 ###Bugs
 
