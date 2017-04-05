@@ -1,0 +1,20 @@
+itemGroup.tabRFRotors=RF Rotors
+
+tile.rfrotors_generatorBlock.name=Rotary Generator Block
+
+item.rfrotors_dustChromel.name=Aerochromel Blend
+item.rfrotors_ingotChromel.name=Aerochromel Ingot
+item.rfrotors_nuggetChromel.name=Aerochromel Nugget
+item.rfrotors_modernRotorBlade.name=Tin Plated Aerochromel Rotor Blade
+item.rfrotors_sailRotorBlade.name=Sail Rotor Blade
+
+tile.rfrotors_rotor.name=Rotor
+tile.rfrotors_rotor.sailRotor.name=Sail Rotor
+tile.rfrotors_rotor.modernRotor.name=Tin Plated Aerochromel Rotor
+tile.rfrotors_rotor.waterRotorWood.name=Wooden Watermill Rotor
+tile.rfrotors_rotor.waterRotorIron.name=Iron Watermill Rotor
+
+info.rfrotors.energy.stored=Stored
+info.rfrotors.energy.generating=Generating
+
+death.attack.rotor=%1$s was chopped up by a rotor

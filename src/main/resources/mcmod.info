@@ -1,0 +1,17 @@
+[
+{
+  "modid": "rfrotors",
+  "name": "RF Rotors",
+  "description": "Generate RF from wind and water",
+  "version": "0.5b",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Ferreusveritas", "Piepenguin"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["ThermalExpansion", "ThermalFoundation"],
+  "useDependencyInformation": "true"
+}
+]
