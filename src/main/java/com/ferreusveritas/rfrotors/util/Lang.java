@@ -2,7 +2,7 @@ package com.ferreusveritas.rfrotors.util;
 
 import com.ferreusveritas.rfrotors.lib.Constants;
 
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 /**
  * Contains localization functions.
@@ -16,6 +16,6 @@ public class Lang {
      * @return Localized version of the string
      */
     public static String localize(String pText) {
-        return StatCollector.translateToLocal("info." + Constants.MODID + "." + pText);
+        return I18n.translateToLocal("info." + Constants.MODID + "." + pText);
     }
 }

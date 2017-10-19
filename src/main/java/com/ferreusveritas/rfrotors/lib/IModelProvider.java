@@ -1,11 +1,11 @@
 package com.ferreusveritas.rfrotors.lib;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModelCustom;
 
 public interface IModelProvider {
 
-	public IModelCustom getModel();
+	//TODO: Port to 1.12.2..  the following is nonsense
+	public String getModel();
 	
     public ResourceLocation getTexture();
     

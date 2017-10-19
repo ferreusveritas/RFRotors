@@ -8,36 +8,36 @@ import com.ferreusveritas.rfrotors.proxy.CommonProxy;
 import com.ferreusveritas.rfrotors.recipes.ModRecipes;
 import com.ferreusveritas.rfrotors.util.WindManager;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = Constants.MODID, name = Constants.NAME, version = Constants.VERSION, dependencies = "required-after:ThermalFoundation;required-after:ThermalExpansion;after:ProjRed|Core")
 public class RFRotors {
 
-    @SidedProxy(clientSide = Constants.CLIENT_PROXY_CLASS, serverSide = Constants.SERVER_PROXY_CLASS)
-    public static CommonProxy proxy;
-
-    public static WindManager windManager = new WindManager();
-    public static final RotorsTab rotorsTab = new RotorsTab();
-    
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent pEvent) {
-        ModConfiguration.init(pEvent.getSuggestedConfigurationFile());
-        ModBlocks.init();
-        ModItems.init();
-    }
-
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent pEvent) {
-        proxy.registerTileEntities();
-        ModRecipes.init();
-    }
-
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent pEvent) {
-
-    }
+	@SidedProxy(clientSide = Constants.CLIENT_PROXY_CLASS, serverSide = Constants.SERVER_PROXY_CLASS)
+	public static CommonProxy proxy;
+	
+	public static WindManager windManager = new WindManager();
+	public static final RotorsTab rotorsTab = new RotorsTab();
+	
+	@Mod.EventHandler
+	public void preInit(FMLPreInitializationEvent pEvent) {
+		ModConfiguration.init(pEvent.getSuggestedConfigurationFile());
+		ModBlocks.init();
+		ModItems.init();
+	}
+	
+	@Mod.EventHandler
+	public void init(FMLInitializationEvent pEvent) {
+		proxy.registerTileEntities();
+		ModRecipes.init();
+	}
+	
+	@Mod.EventHandler
+	public void postInit(FMLPostInitializationEvent pEvent) {
+	
+	}
 }

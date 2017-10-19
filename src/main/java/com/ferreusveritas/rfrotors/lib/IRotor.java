@@ -1,19 +1,16 @@
 package com.ferreusveritas.rfrotors.lib;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModelCustom;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 public interface IRotor {
 
 	public EnergyPacket getEnergyPacket();
 	
-	public boolean attach(ForgeDirection dir);
-
+	public boolean attach(EnumFacing dir);
+	
 	public int getType();
 	
-    public float getRotation(float dt);
-        
-    public ForgeDirection getDirection();
+	public float getRotation(float dt);
+	
+	public EnumFacing getDirection();
 }

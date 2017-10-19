@@ -3,8 +3,6 @@ package com.ferreusveritas.rfrotors.items;
 import com.ferreusveritas.rfrotors.RFRotors;
 import com.ferreusveritas.rfrotors.lib.Constants;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
 /**
@@ -14,13 +12,13 @@ import net.minecraft.item.Item;
  */
 public class RFRItem extends Item {
 
-    private String name;
+	private String name;
 
-    public RFRItem(String pName) {
-        name = pName;
-        setUnlocalizedName(Constants.MODID + "_" + name);
-        setCreativeTab(RFRotors.rotorsTab);
-        setTextureName(Constants.MODID + ":" + name);
-        GameRegistry.registerItem(this, name);
-    }
+	public RFRItem(String pName) {
+		name = pName;
+		setUnlocalizedName(Constants.MODID + "_" + name);
+		setCreativeTab(RFRotors.rotorsTab);
+		//TODO: Port to 1.12.2
+		//GameRegistry.registerItem(this, name);
+	}
 }

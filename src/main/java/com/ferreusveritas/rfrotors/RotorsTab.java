@@ -13,8 +13,8 @@ public class RotorsTab extends CreativeTabs {
 	}
 
 	@Override
-	public Item getTabIconItem() {
-		return Item.getItemFromBlock(ModBlocks.generatorBlock);
+	public ItemStack getTabIconItem() {
+		return new ItemStack(Item.getItemFromBlock(ModBlocks.generatorBlock));
 	}
 
 }
