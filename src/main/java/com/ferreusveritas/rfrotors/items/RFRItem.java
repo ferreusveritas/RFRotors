@@ -1,7 +1,6 @@
 package com.ferreusveritas.rfrotors.items;
 
 import com.ferreusveritas.rfrotors.RFRotors;
-import com.ferreusveritas.rfrotors.lib.Constants;
 
 import net.minecraft.item.Item;
 
@@ -16,9 +15,7 @@ public class RFRItem extends Item {
 
 	public RFRItem(String pName) {
 		name = pName;
-		setUnlocalizedName(Constants.MODID + "_" + name);
+		setUnlocalizedName(name);
 		setCreativeTab(RFRotors.rotorsTab);
-		//TODO: Port to 1.12.2
-		//GameRegistry.registerItem(this, name);
 	}
 }

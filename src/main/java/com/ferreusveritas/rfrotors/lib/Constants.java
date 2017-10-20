@@ -9,6 +9,6 @@ public class Constants {
     public static final String VERSION = "0.5b";
     public static final String CLIENT_PROXY_CLASS = "com.ferreusveritas.rfrotors.proxy.ClientProxy";
     public static final String SERVER_PROXY_CLASS = "com.ferreusveritas.rfrotors.proxy.CommonProxy";
-    public static final String THERMAL_EXPANSION_MOD_ID = "ThermalExpansion";
-    public static final String THERMAL_FOUNDATION_MOD_ID = "ThermalFoundation";
+    public static final String THERMAL_EXPANSION_MOD_ID = "thermalexpansion";
+    public static final String THERMAL_FOUNDATION_MOD_ID = "thermalfoundation";
 }

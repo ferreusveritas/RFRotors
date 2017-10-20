@@ -1,5 +1,6 @@
 package com.ferreusveritas.rfrotors.lib;
 
+import com.ferreusveritas.rfrotors.blocks.BlockRotor;
 import com.google.common.base.Preconditions;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -123,8 +124,8 @@ public class ModConfiguration {
 	
 	//Rotors
 	
-	public static float getRotorEnergyMultiplier(int pType) {
-		return rotorEnergyMultiplier[pType];
+	public static float getRotorEnergyMultiplier(BlockRotor.EnumType pType) {
+		return rotorEnergyMultiplier[pType.getMetadata()];
 	}
 	
 	public static float getAngularVelocityPerRF() {

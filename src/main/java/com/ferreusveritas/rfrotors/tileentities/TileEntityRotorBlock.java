@@ -2,6 +2,7 @@ package com.ferreusveritas.rfrotors.tileentities;
 
 import java.util.ArrayList;
 
+import com.ferreusveritas.rfrotors.blocks.BlockRotor;
 import com.ferreusveritas.rfrotors.util.RotorDamageSource;
 
 import net.minecraft.block.state.IBlockState;
@@ -29,7 +30,7 @@ public class TileEntityRotorBlock extends TileEntity implements ITickable {
 	protected float oldSpeed = 0.0f;
 	protected float rotation = 0.0f;
 	protected float lastRotation = 0.0f;//For animation interpolation
-	private int type = 0;
+	private BlockRotor.EnumType type;
 	
 	@Override
 	public void update() {
@@ -59,7 +60,7 @@ public class TileEntityRotorBlock extends TileEntity implements ITickable {
 	 * Set the type of rotor used to make the corresponding block
 	 * @param pType Tier of the rotor
 	 */
-	public TileEntityRotorBlock setType(int type){
+	public TileEntityRotorBlock setType(BlockRotor.EnumType type){
 		this.type = type;
 		return this;
 	}
@@ -68,7 +69,7 @@ public class TileEntityRotorBlock extends TileEntity implements ITickable {
 	 * Get the tier of the rotor used to make the corresponding block.
 	 * @return Integer corresponding to the rotor tier used to make the rotor
 	 */
-	public int getType() {
+	public BlockRotor.EnumType getType() {
 		return type;
 	}
 	
@@ -171,13 +172,13 @@ public class TileEntityRotorBlock extends TileEntity implements ITickable {
 	}
 	
 	public void readSyncableDataFromNBT(NBTTagCompound pNbt) {
-		type = pNbt.getInteger(NBT_ROTOR_TYPE);
+		type = BlockRotor.EnumType.byMetadata(pNbt.getInteger(NBT_ROTOR_TYPE));
 		speed = pNbt.getFloat(NBT_ROTOR_SPEED);
 		rotorDir = EnumFacing.getFront(pNbt.getInteger(NBT_ROTOR_DIR));
 	}
 	
 	public NBTTagCompound writeSyncableDataToNBT(NBTTagCompound pNbt) {
-		pNbt.setInteger(NBT_ROTOR_TYPE, type);
+		pNbt.setInteger(NBT_ROTOR_TYPE, type.getMetadata());
 		pNbt.setFloat(NBT_ROTOR_SPEED, speed);
 		pNbt.setInteger(NBT_ROTOR_DIR, rotorDir.ordinal());
 		return pNbt;

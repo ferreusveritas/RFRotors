@@ -1,10 +1,6 @@
 package com.ferreusveritas.rfrotors.blocks;
 
-import java.util.List;
-
 import com.ferreusveritas.rfrotors.RFRotors;
-import com.ferreusveritas.rfrotors.items.ItemBlockRotor;
-import com.ferreusveritas.rfrotors.lib.Constants;
 import com.ferreusveritas.rfrotors.lib.IRotor;
 import com.ferreusveritas.rfrotors.tileentities.TileEntityGeneratorBlock;
 import com.ferreusveritas.rfrotors.tileentities.TileEntityRotorBlock;
@@ -16,15 +12,19 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -35,6 +35,8 @@ import net.minecraft.world.World;
  */
 public class BlockRotor extends BlockContainer {
 	
+	public static final PropertyEnum<BlockRotor.EnumType> TYPE = PropertyEnum.<BlockRotor.EnumType>create("type", BlockRotor.EnumType.class);
+	
 	public static final String name = "rotor";
 
 	public BlockRotor() {
@@ -43,25 +45,39 @@ public class BlockRotor extends BlockContainer {
 	
 	public BlockRotor(String name) {
 		super(Material.IRON);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumType.WINDROTORSAIL));
 		setSoundType(SoundType.METAL);
 		setRegistryName(name);
 		setUnlocalizedName(name);
 		setHardness(3.5f);
 		setResistance(10f);
 		setCreativeTab(RFRotors.rotorsTab);
-		GameRegistry.registerBlock(this, ItemBlockRotor.class, "rotor");
 	}
 	
 	@Override
-	public boolean renderAsNormalBlock() {
-		return false;
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {TYPE});
 	}
-
+	
+	/** Convert the given metadata into a BlockState for this Block */
+	public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(TYPE, EnumType.byMetadata(meta));
+	}
+	
+	/** Convert the BlockState into the correct metadata value */
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(TYPE).getMetadata();
+	}
+	
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isFullBlock(IBlockState state) {
 		return false;
 	}
-
+	
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 	
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
@@ -76,26 +92,31 @@ public class BlockRotor extends BlockContainer {
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(World pWorld, int pMeta) {
-		switch(pMeta){
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
+		
+		EnumType type = EnumType.byMetadata(meta);
+		
+		switch(type) {
 			default:
-			case 0: return new TileEntityWindRotorBlock().setType(pMeta);
-			case 1: return new TileEntityWindRotorBlock().setType(pMeta);
-			case 2: return new TileEntityWaterRotorBlock().setType(pMeta);
-			case 3: return new TileEntityWaterRotorBlock().setType(pMeta);
+			case WINDROTORSAIL: return new TileEntityWindRotorBlock().setType(type);
+			case WINDROTORMODERN: return new TileEntityWindRotorBlock().setType(type);
+			case WATERROTORWOOD: return new TileEntityWaterRotorBlock().setType(type);
+			case WATERROTORIRON: return new TileEntityWaterRotorBlock().setType(type);
 		}
 	}
-
+	
 	//For NEI and pickBlock(...)
 	@Override
-	public int damageDropped(int meta) {
-		return meta;
+	public int damageDropped(IBlockState state) {
+		return state.getValue(TYPE).getMetadata();
 	}
 	
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
-		for(int i = 0; i < 4; i++){
-			list.add(new ItemStack(item, 1, i));
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+		if(tab.equals(getCreativeTabToDisplayOn())) {
+			for(EnumType type : EnumType.values()) {
+				subItems.add(new ItemStack(this, 1, type.getMetadata()));
+			}
 		}
 	}
 	
@@ -120,7 +141,7 @@ public class BlockRotor extends BlockContainer {
 		// Dismantle the rotor
 		dismantle(world, pos);
 	}
-
+	
 	/**
 	 * Remove the block from the world and drop the corresponding rotor as an
 	 * item. Does not notify the parent {@link TurbineBlock} of any changes.
@@ -133,8 +154,10 @@ public class BlockRotor extends BlockContainer {
 		IRotor rotor = getRotor(world, pos);
 		if(rotor != null){
 			world.setBlockToAir(pos);
-			//TODO: Port to 1.12.2
-			//dropBlockAsItem(world, pos, new ItemStack(this, 1, rotor.getType()));
+			
+			if (!world.isRemote && !world.restoringBlockSnapshots) {// do not drop items while restoring blockstates, prevents item dupe
+				spawnAsEntity(world, pos, new ItemStack(this, 1, rotor.getType().getMetadata()));
+			}
 		}
 	}
 	
@@ -161,11 +184,11 @@ public class BlockRotor extends BlockContainer {
 		
 		return true;
 	}
-
 	
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess access, int x, int y, int z) {
-		TileEntity entity = access.getTileEntity(x, y, z);
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess access, BlockPos pos) {
+	//public void setBlockBoundsBasedOnState(IBlockAccess access, int x, int y, int z) {
+		TileEntity entity = access.getTileEntity(pos);
 		if(entity instanceof TileEntityRotorBlock){
 			TileEntityRotorBlock rotorEntity = (TileEntityRotorBlock) entity;
 			IRotor rotor = (IRotor) entity;
@@ -174,13 +197,69 @@ public class BlockRotor extends BlockContainer {
 				float depth = rotorEntity.getRotorDepth();
 				float hubRadius = rotorEntity.getRotorHubRadius();
 				EnumFacing rotorDir = rotor.getDirection();
-				float minX = rotorDir.offsetX == 1 ? 0f : rotorDir.offsetX == -1 ? 1 - depth : 0.5f - hubRadius;
+				float minX = rotorDir.getFrontOffsetX() == 1 ? 0f : rotorDir.getFrontOffsetX() == -1 ? 1 - depth : 0.5f - hubRadius;
 				float minY = 0.5f - hubRadius;
-				float minZ = rotorDir.offsetZ == 1 ? 0f : rotorDir.offsetZ == -1 ? 1 - depth : 0.5f - hubRadius;
-				float maxX = rotorDir.offsetX == 1 ? depth : rotorDir.offsetX == -1 ? 1f : 0.5f + hubRadius;
+				float minZ = rotorDir.getFrontOffsetZ() == 1 ? 0f : rotorDir.getFrontOffsetZ() == -1 ? 1 - depth : 0.5f - hubRadius;
+				float maxX = rotorDir.getFrontOffsetX() == 1 ? depth : rotorDir.getFrontOffsetX() == -1 ? 1f : 0.5f + hubRadius;
 				float maxY = 0.5f + hubRadius;
-				float maxZ = rotorDir.offsetZ == 1 ? depth : rotorDir.offsetZ == -1 ? 1f : 0.5f + hubRadius;
-				this.setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
+				float maxZ = rotorDir.getFrontOffsetZ() == 1 ? depth : rotorDir.getFrontOffsetZ() == -1 ? 1f : 0.5f + hubRadius;
+				return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
+			}
+		}
+		
+		return new AxisAlignedBB(pos);
+	}
+	
+	public static enum EnumType implements IStringSerializable {
+		WINDROTORSAIL(0, "windRotorSail", 7 / 16f, 4 / 16f),
+		WINDROTORMODERN(1, "windRotorModern", 6 / 16f, 2 / 16f),
+		WATERROTORWOOD(2, "waterRotorWood", 1.0f, 5 / 16f),
+		WATERROTORIRON(3, "waterRotorIron", 1.0f, 5 / 16f);
+		
+		private static final BlockRotor.EnumType[] META_LOOKUP = new BlockRotor.EnumType[values().length];
+		private final int meta;
+		private final String name;
+		private final float rotorDepth;
+		private final float rotorHubRadius;
+		
+		private EnumType(int metaIn, String nameIn, float rotorDepth, float rotorHubRadius) {
+			this.meta = metaIn;
+			this.name = nameIn;
+			this.rotorDepth = rotorDepth;
+			this.rotorHubRadius = rotorHubRadius;
+		}
+		
+		public int getMetadata() {
+			return this.meta;
+		}
+		
+		public String toString() {
+			return this.name;
+		}
+		
+		public float getRotorDepth() {
+			return rotorDepth;
+		}
+		
+		public float getRotorHubRadius() {
+			return rotorHubRadius;
+		}
+		
+		public static BlockRotor.EnumType byMetadata(int meta) {
+			if (meta < 0 || meta >= META_LOOKUP.length) {
+				meta = 0;
+			}
+			
+			return META_LOOKUP[meta];
+		}
+		
+		public String getName() {
+			return this.name;
+		}
+		
+		static {
+			for (BlockRotor.EnumType rotorType : values()) {
+				META_LOOKUP[rotorType.getMetadata()] = rotorType;
 			}
 		}
 	}

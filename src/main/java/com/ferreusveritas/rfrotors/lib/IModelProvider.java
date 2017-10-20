@@ -4,11 +4,11 @@ import net.minecraft.util.ResourceLocation;
 
 public interface IModelProvider {
 
-	//TODO: Port to 1.12.2..  the following is nonsense
+	//FIXME: Port to 1.12.2..  the following is nonsense
 	public String getModel();
 	
-    public ResourceLocation getTexture();
-    
-    public boolean flip();
+	public ResourceLocation getTexture();
+	
+	public boolean flip();
 	
 }
