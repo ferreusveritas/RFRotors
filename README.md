@@ -1,13 +1,17 @@
 RF Rotors
 ========
 
+
+----------
+
+
 This is a mod for Minecraft that adds Redstone Flux generating windmills and watermills.
 This branch is for the **1.7.10** version of Minecraft.  Uses [Thermal Expansion's](https://minecraft.curseforge.com/projects/thermalexpansion) materials for its recipes. See NEI for recipes and other specifics.
 
-###Attribution
+**Attribution**
 This is a fork of RF Windmills that was originally written by [Piepenguin](https://github.com/dbMansfield) in 2015.  The original Piepenguin's rfwindmills is located [here](  https://github.com/dbMansfield/rfwindmill).  So much of the code has changed that it is barely recognizable.
 
-###Changes from the original work
+**Changes from the original work**
 - Much of the code has been reworked.
 - Added configuration options for windmill height settings and wind power in the nether and the end.
 - Rewrote config file handler to use reasonable limits.
@@ -37,12 +41,10 @@ This is a fork of RF Windmills that was originally written by [Piepenguin](https
 	- Removed fallback recipes for buildcraft. This mod now unapologetically requires Thermal Expansion and Thermal Foundation.
 - Removed hand crank capability(May re-add later if it's worth it).
 
-###Bugs
-
+**Bugs**
 If you find a bug, please report it on the issue tracker!
 
-###Contributing
-
+**Contributing**
 Gradle files are included in the repo for your convenience. Clone RFRotors and set up the workspace depending on your IDE. e.g.
 
 gradlew setupDecompWorkspace idea --refresh-dependencies
