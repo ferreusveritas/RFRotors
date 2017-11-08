@@ -2,7 +2,7 @@ RF Rotors
 ========
 
 This is a mod for Minecraft that adds Redstone Flux generating windmills and watermills.
-This branch is for the **1.12.2** version of Minecraft.  Uses [Thermal Expansion's](https://minecraft.curseforge.com/projects/thermalexpansion) materials for its recipes. See NEI for recipes and other specifics.
+This branch is for the **1.7.10** version of Minecraft.  Uses [Thermal Expansion's](https://minecraft.curseforge.com/projects/thermalexpansion) materials for its recipes. See NEI for recipes and other specifics.
 
 ###Attribution
 This is a fork of RF Windmills that was originally written by [Piepenguin](https://github.com/dbMansfield) in 2015.  The original Piepenguin's rfwindmills is located [here](  https://github.com/dbMansfield/rfwindmill).  So much of the code has changed that it is barely recognizable.
