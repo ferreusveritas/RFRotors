@@ -1,0 +1,10 @@
+{
+    "variants": {
+		"facing=down": { "model": "dirt" },
+		"facing=up": { "model": "dirt" },
+        "facing=north": { "model": "rfrotors:generatorblock" },
+        "facing=east":  { "model": "rfrotors:generatorblock", "y": 90 },
+        "facing=south": { "model": "rfrotors:generatorblock", "y": 180 },
+        "facing=west":  { "model": "rfrotors:generatorblock", "y": 270 }
+    }
+}

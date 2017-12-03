@@ -1,0 +1,8 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "top": "rfrotors:blocks/generatorBlockSide",
+        "front": "rfrotors:blocks/generatorBlockFront",
+        "side": "rfrotors:blocks/generatorBlockSide"
+    }
+}

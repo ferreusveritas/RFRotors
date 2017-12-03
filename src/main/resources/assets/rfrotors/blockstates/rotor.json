@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "type=waterrotorwood": { "model": "dirt" },
+        "type=windrotormodern":  { "model": "dirt", "y": 90 },
+        "type=waterrotoriron": { "model": "dirt", "y": 180 },
+        "type=windrotorsail":  { "model": "dirt", "y": 270 }
+    }
+}
