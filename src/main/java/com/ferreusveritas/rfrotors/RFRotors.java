@@ -1,11 +1,8 @@
 package com.ferreusveritas.rfrotors;
 
-import com.ferreusveritas.rfrotors.blocks.ModBlocks;
-import com.ferreusveritas.rfrotors.items.ModItems;
 import com.ferreusveritas.rfrotors.lib.Constants;
 import com.ferreusveritas.rfrotors.lib.ModConfiguration;
 import com.ferreusveritas.rfrotors.proxy.CommonProxy;
-import com.ferreusveritas.rfrotors.recipes.ModRecipes;
 import com.ferreusveritas.rfrotors.util.WindManager;
 
 import net.minecraft.block.Block;
@@ -14,6 +11,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -30,19 +28,22 @@ public class RFRotors {
 	public static WindManager windManager = new WindManager();
 	public static final RotorsTab rotorsTab = new RotorsTab();
 	
-	@Mod.EventHandler
+	@EventHandler
 	public void preInit(FMLPreInitializationEvent pEvent) {
-		ModConfiguration.init(pEvent.getSuggestedConfigurationFile());
-		ModBlocks.init();
-		ModItems.init();
+		ModConfiguration.init(pEvent.getSuggestedConfigurationFile());		
+		ModBlocks.preInit();		
+		ModItems.preInit();
+		
+		proxy.preInit();
 	}
 	
-	@Mod.EventHandler
+	@EventHandler
 	public void init(FMLInitializationEvent pEvent) {
 		proxy.registerTileEntities();
+		proxy.registerRenderers();
 	}
 	
-	@Mod.EventHandler
+	@EventHandler
 	public void postInit(FMLPostInitializationEvent pEvent) {
 	
 	}
@@ -68,6 +69,7 @@ public class RFRotors {
 		
 		@SubscribeEvent(priority = EventPriority.LOWEST)
 		public static void registerRecipes(final RegistryEvent.Register<IRecipe> event) {
+			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX RegistrationHandler:registerRecipes XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 			final IForgeRegistry<IRecipe> registry = event.getRegistry();
 			ModRecipes.register(registry);
 		}

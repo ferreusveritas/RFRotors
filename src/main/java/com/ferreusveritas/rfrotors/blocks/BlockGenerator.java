@@ -61,7 +61,7 @@ public class BlockGenerator extends BlockDirectional implements ITileEntityProvi
 		name = pName;
 		setRegistryName(name);
 		setUnlocalizedName(name);
-		this.setCreativeTab(RFRotors.rotorsTab);
+		setCreativeTab(RFRotors.rotorsTab);
 	}
 	
 	@Override

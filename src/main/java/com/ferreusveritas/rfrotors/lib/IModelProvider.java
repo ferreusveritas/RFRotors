@@ -1,11 +1,11 @@
 package com.ferreusveritas.rfrotors.lib;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.IModel;
 
 public interface IModelProvider {
 
-	//FIXME: Port to 1.12.2..  the following is nonsense
-	public String getModel();
+	public IModel getModel();
 	
 	public ResourceLocation getTexture();
 	

@@ -1,18 +1,18 @@
-package com.ferreusveritas.rfrotors.recipes;
+package com.ferreusveritas.rfrotors;
 
 
-import com.ferreusveritas.rfrotors.blocks.ModBlocks;
-import com.ferreusveritas.rfrotors.items.ModItems;
 import com.ferreusveritas.rfrotors.lib.Constants;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -52,10 +52,18 @@ public class ModRecipes {
 	 * Register recipes not dependent on the loaded mods.
 	 */
 	private static void registerCommonRecipes(IForgeRegistry<IRecipe> registry) {
-		ItemStack aerotheumBucket = findThermalFoundationItem("bucket", 7);
-		ItemStack cinnabar = findThermalFoundationItem("material", 20);
-
-		registry.register(new ShapelessOreRecipe(localResource("dustChromel"), ModItems.dustChromel, "dustPlatinum", "dustPlatinum", "dustNickel", "dustNickel", aerotheumBucket, cinnabar));
+		Ingredient aerotheumBucket = Ingredient.fromStacks(findThermalFoundationItem("bucket", 7));
+		Ingredient cinnabar = Ingredient.fromStacks(findThermalFoundationItem("material", 20));
+		Ingredient dustPlatinum = new OreIngredient("dustPlatinum");
+		Ingredient dustNickel = new OreIngredient("dustNickel");
+		
+		GameRegistry.addShapelessRecipe(
+				localResource("dustChromel"), //Name 
+				null, //Group
+				new ItemStack(ModItems.dustChromel), //Output 
+				new Ingredient[] { dustPlatinum, dustPlatinum, dustNickel, dustNickel, aerotheumBucket, cinnabar }
+			);
+				
 		GameRegistry.addSmelting(ModItems.dustChromel, new ItemStack(ModItems.ingotChromel), 0);
 		GameRegistry.addShapedRecipe(localResource("ingotChromel"), null, new ItemStack(ModItems.ingotChromel), "nnn", "nnn", "nnn", 'n', new ItemStack(ModItems.nuggetChromel));
 		GameRegistry.addShapelessRecipe(localResource("nuggetChromel"), null, new ItemStack(ModItems.nuggetChromel, 9), new Ingredient[] { Ingredient.fromStacks(new ItemStack(ModItems.ingotChromel)) });
@@ -81,19 +89,80 @@ public class ModRecipes {
 		//if(Loader.isModLoaded("ProjRed|Core")){
 		//	cloth = new ItemStack(GameRegistry.findItem("ProjRed|Core", "projectred.core.part"), 1, 35);
 		//}
+	
+		//Recipe for Wind Sail Rotor Blade
+		GameRegistry.addShapedRecipe(
+			localResource("sailRotorBlade"), //Name
+			null, //Group
+			new ItemStack(ModItems.sailRotorBlade), //Output
+			"iii",
+			"bbb",
+			"www",
+			'i', "ingotIron",
+			'b', Blocks.IRON_BARS, 
+			'w', cloth
+		);
 		
-		registry.register(new ShapedOreRecipe(localResource("sailRotorBlade"), ModItems.sailRotorBlade, "iii", "bbb", "www", 'i', "ingotIron", 'b', Blocks.IRON_BARS, 'w', cloth));
-		GameRegistry.addShapedRecipe(localResource("rotorWindSail"), null, new ItemStack(ModBlocks.rotorBlock, 1, 0), " b ", "bgb", " b ", 'b', new ItemStack(ModItems.sailRotorBlade), 'g', bronzeGear);
+		//Recipe for Wind Sail Rotor
+		GameRegistry.addShapedRecipe(
+			localResource("rotorWindSail"), //Name
+			null, //Group
+			new ItemStack(ModBlocks.rotorBlock, 1, 0), //Output
+			" b ",
+			"bgb",
+			" b ",
+			'b', new ItemStack(ModItems.sailRotorBlade),
+			'g', bronzeGear
+		);
 		
-		//Modern Rotor Recipes
-		registry.register(new ShapedOreRecipe(localResource("modernRotorBlade"), ModItems.modernRotorBlade, "www", "ttt", "iii", 'w', "dyeWhite", 't', "ingotTin", 'i', ModItems.ingotChromel));
-		GameRegistry.addShapedRecipe(localResource("rotorWindModern"), null, new ItemStack(ModBlocks.rotorBlock, 1, 1), " b ", " g ", "b b", 'b', new ItemStack(ModItems.modernRotorBlade), 'g', shinyGear);
+		//Recipe for Modern Wind Rotor Blade
+		GameRegistry.addShapedRecipe(
+			localResource("modernRotorBlade"),
+			null,
+			new ItemStack(ModItems.modernRotorBlade),
+			"www",
+			"ttt",
+			"iii",
+			'w', "dyeWhite",
+			't', "ingotTin",
+			'i', ModItems.ingotChromel
+		);
+
+		//Recipe for Modern Wind Rotor
+		GameRegistry.addShapedRecipe(
+			localResource("rotorWindModern"),//Name
+			null,//Group
+			new ItemStack(ModBlocks.rotorBlock, 1, 1),//Output 
+			" b ",
+			" g ",
+			"b b",
+			'b', new ItemStack(ModItems.modernRotorBlade),
+			'g', shinyGear
+		);
 		
 		//Wooden Water Wheel Recipe
-		GameRegistry.addShapedRecipe(localResource("rotorWaterWood"), null, new ItemStack(ModBlocks.rotorBlock, 1, 2), "bbb", "bgb", "bbb", 'b', Items.BOAT, 'g', bronzeGear);
+		GameRegistry.addShapedRecipe(
+			localResource("rotorWaterWood"),//Name
+			null,//Group
+			new ItemStack(ModBlocks.rotorBlock, 1, 2),//Output
+			"bbb",
+			"bgb",
+			"bbb",
+			'b', Items.BOAT,
+			'g', bronzeGear
+		);
 		
 		//Iron Water Wheel Recipe
-		GameRegistry.addShapedRecipe(localResource("rotorWaterIron"), null, new ItemStack(ModBlocks.rotorBlock, 1, 3), "ccc", "cgc", "ccc", 'c', Items.CAULDRON, 'g', invarGear);
+		GameRegistry.addShapedRecipe(
+			localResource("rotorWaterIron"),
+			null,
+			new ItemStack(ModBlocks.rotorBlock, 1, 3),
+			"ccc",
+			"cgc",
+			"ccc",
+			'c', Items.CAULDRON,
+			'g', invarGear
+		);
 		
 	}
 
@@ -109,7 +178,19 @@ public class ModRecipes {
 		ItemStack machineFrameBasic = new ItemStack(Blocks.PISTON);
 		//ItemStack machineFrameBasic = Preconditions.checkNotNull(GameRegistry.findItemStack(Constants.THERMAL_EXPANSION_MOD_ID, "frameMachineBasic", 1));
 		
-		registry.register(new ShapedOreRecipe(localResource("generator"), new ItemStack(ModBlocks.generatorBlock, 1, 0), " x ", "gmg", " c ", 'x', "dustRedstone", 'g', bronzeGear, 'm', machineFrameBasic, 'c', powerCoilSilver));
+		GameRegistry.addShapedRecipe(
+			localResource("generator"), //Name
+			null, //Group
+			new ItemStack(ModBlocks.generatorBlock, 1, 0), //Output
+			" x ",
+			"gmg",
+			" c ",
+			'x', "dustRedstone",
+			'g', bronzeGear,
+			'm', machineFrameBasic,
+			'c', powerCoilSilver
+		);
+
 	}
 
 }

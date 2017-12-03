@@ -35,7 +35,7 @@ import net.minecraft.world.World;
  */
 public class BlockRotor extends BlockContainer {
 	
-	public static final PropertyEnum<BlockRotor.EnumType> TYPE = PropertyEnum.<BlockRotor.EnumType>create("type", BlockRotor.EnumType.class);
+	public static final PropertyEnum<BlockRotor.EnumType> TYPE = PropertyEnum.create("type", BlockRotor.EnumType.class);
 	
 	public static final String name = "rotor";
 
@@ -45,10 +45,10 @@ public class BlockRotor extends BlockContainer {
 	
 	public BlockRotor(String name) {
 		super(Material.IRON);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumType.WINDROTORSAIL));
-		setSoundType(SoundType.METAL);
-		setRegistryName(name);
-		setUnlocalizedName(name);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, BlockRotor.EnumType.WINDROTORSAIL));		
+		setSoundType(SoundType.METAL);		
+		setRegistryName(name);		
+		setUnlocalizedName(name);		
 		setHardness(3.5f);
 		setResistance(10f);
 		setCreativeTab(RFRotors.rotorsTab);
@@ -60,11 +60,13 @@ public class BlockRotor extends BlockContainer {
 	}
 	
 	/** Convert the given metadata into a BlockState for this Block */
+	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(TYPE, EnumType.byMetadata(meta));
 	}
 	
 	/** Convert the BlockState into the correct metadata value */
+	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(TYPE).getMetadata();
 	}
@@ -211,10 +213,10 @@ public class BlockRotor extends BlockContainer {
 	}
 	
 	public static enum EnumType implements IStringSerializable {
-		WINDROTORSAIL(0, "windRotorSail", 7 / 16f, 4 / 16f),
-		WINDROTORMODERN(1, "windRotorModern", 6 / 16f, 2 / 16f),
-		WATERROTORWOOD(2, "waterRotorWood", 1.0f, 5 / 16f),
-		WATERROTORIRON(3, "waterRotorIron", 1.0f, 5 / 16f);
+		WINDROTORSAIL(0, "windrotorsail", 7 / 16f, 4 / 16f),
+		WINDROTORMODERN(1, "windrotormodern", 6 / 16f, 2 / 16f),
+		WATERROTORWOOD(2, "waterrotorwood", 1.0f, 5 / 16f),
+		WATERROTORIRON(3, "waterrotoriron", 1.0f, 5 / 16f);
 		
 		private static final BlockRotor.EnumType[] META_LOOKUP = new BlockRotor.EnumType[values().length];
 		private final int meta;
@@ -233,6 +235,7 @@ public class BlockRotor extends BlockContainer {
 			return this.meta;
 		}
 		
+		@Override
 		public String toString() {
 			return this.name;
 		}
@@ -253,6 +256,7 @@ public class BlockRotor extends BlockContainer {
 			return META_LOOKUP[meta];
 		}
 		
+		@Override
 		public String getName() {
 			return this.name;
 		}
@@ -262,6 +266,7 @@ public class BlockRotor extends BlockContainer {
 				META_LOOKUP[rotorType.getMetadata()] = rotorType;
 			}
 		}
+
 	}
 
 }

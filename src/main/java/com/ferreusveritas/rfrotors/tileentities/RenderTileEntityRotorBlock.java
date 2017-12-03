@@ -15,18 +15,15 @@ import com.ferreusveritas.rfrotors.lib.IRotor;
  * stored in the renderer and determined at runtime via the metadata of the
  * corresponding {@link com.ferreusveritas.rfrotors.blocks.BlockRotor}.
  */
-public class RenderTileEntityRotorBlock extends TileEntitySpecialRenderer {
+public class RenderTileEntityRotorBlock extends TileEntitySpecialRenderer<TileEntityRotorBlock> {
 
 	public RenderTileEntityRotorBlock() {
 		TileEntityWindRotorBlock.initResources();
 		TileEntityWaterRotorBlock.initResources();
 	}
 
-
-	
 	@Override
-	public void render(TileEntity entity, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-	//public void renderTileEntityAt(TileEntity entity, double x, double y, double z, float dt) {
+	public void render(TileEntityRotorBlock entity, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		
 		if(!(entity instanceof IRotor) || !(entity instanceof IModelProvider)){
 			return;

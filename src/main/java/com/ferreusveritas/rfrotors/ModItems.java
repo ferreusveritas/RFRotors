@@ -1,6 +1,10 @@
-package com.ferreusveritas.rfrotors.items;
+package com.ferreusveritas.rfrotors;
 
+import com.ferreusveritas.rfrotors.items.RFRItem;
+
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.registries.IForgeRegistry;
 
 /**
@@ -18,7 +22,7 @@ public final class ModItems {
 	/**
 	 * Creates {@link RFRItem} instances of all the items in the mod.
 	 */
-	public static void init() {
+	public static void preInit() {
 		String metalName = "Chromel";
 		ingotChromel = new RFRItem("ingot" + metalName);
 		dustChromel = new RFRItem("dust" + metalName);
@@ -35,6 +39,15 @@ public final class ModItems {
 		
 		registry.register(sailRotorBlade);
 		registry.register(modernRotorBlade);
+		
+		registerItemBlock(registry, ModBlocks.generatorBlock);
+		registerItemBlock(registry, ModBlocks.rotorBlock);
 	}
 
+	public static void registerItemBlock(IForgeRegistry<Item> registry, Block block) {
+		ItemBlock itemBlock = new ItemBlock(block);
+		itemBlock.setRegistryName(block.getRegistryName());
+		registry.register(itemBlock);
+	}
+	
 }

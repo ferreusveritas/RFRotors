@@ -10,6 +10,8 @@ import com.ferreusveritas.rfrotors.lib.ModConfiguration;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.obj.OBJLoader;
 
 /**
  * Tile entity for the {@link com.ferreusveritas.rfrotors.blocks.BlockRotor}
@@ -21,10 +23,10 @@ public class TileEntityWindRotorBlock extends TileEntityRotorBlock implements IR
 	
 	private static ResourceLocation sailRotorTexture;
 	private static ResourceLocation modernRotorTexture;
-	private static String sailRotorResLocation = "models/sailRotor";
-	private static String modernRotorResLocation = "models/modernRotor";
-	private static IModelCustom sailRotorModel;
-	private static IModelCustom modernRotorModel;
+	private static String sailRotorResLocation = "models/sailrotor";
+	private static String modernRotorResLocation = "models/modernrotor";
+	private static IModel sailRotorModel;
+	private static IModel modernRotorModel;
 	
 	public static String publicName = "tileEntityWindRotorBlock";
 	private static final float degreesPerRFPerTick = ModConfiguration.getAngularVelocityPerRF();
@@ -137,6 +139,9 @@ public class TileEntityWindRotorBlock extends TileEntityRotorBlock implements IR
 	
 	@Override
 	public EnumFacing getDirection() {
+		if(rotorDir == null) {
+			rotorDir = EnumFacing.NORTH;
+		}
 		return rotorDir;
 	}
 	
@@ -145,18 +150,22 @@ public class TileEntityWindRotorBlock extends TileEntityRotorBlock implements IR
 	///////////////////////////////////////////
 	
 	static public void initResources() {
-		sailRotorTexture = new ResourceLocation(Constants.MODID, sailRotorResLocation + ".png");
-		modernRotorTexture = new ResourceLocation(Constants.MODID, modernRotorResLocation + ".png");
-		sailRotorModel = AdvancedModelLoader.loadModel(new ResourceLocation(Constants.MODID, sailRotorResLocation + ".obj"));
-		modernRotorModel = AdvancedModelLoader.loadModel(new ResourceLocation(Constants.MODID, modernRotorResLocation + ".obj"));
+		try {
+			sailRotorTexture = new ResourceLocation(Constants.MODID, sailRotorResLocation + ".png");
+			modernRotorTexture = new ResourceLocation(Constants.MODID, modernRotorResLocation + ".png");
+			sailRotorModel = OBJLoader.INSTANCE.loadModel(new ResourceLocation(Constants.MODID, sailRotorResLocation + ".obj"));
+			modernRotorModel = OBJLoader.INSTANCE.loadModel(new ResourceLocation(Constants.MODID, modernRotorResLocation + ".obj"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
-	public IModelCustom getModel() {
+	public IModel getModel() {
 		switch(getType()){
 			default:
-			case 0: return sailRotorModel;
-			case 1: return modernRotorModel;
+			case WINDROTORSAIL: return sailRotorModel;
+			case WINDROTORMODERN: return modernRotorModel;
 		}
 	}
 	
@@ -171,8 +180,8 @@ public class TileEntityWindRotorBlock extends TileEntityRotorBlock implements IR
 	public ResourceLocation getTexture() {
 		switch(getType()){
 			default:
-			case 0: return sailRotorTexture;
-			case 1: return modernRotorTexture;
+			case WINDROTORSAIL: return sailRotorTexture;
+			case WINDROTORMODERN: return modernRotorTexture;
 		}
 	}
 	

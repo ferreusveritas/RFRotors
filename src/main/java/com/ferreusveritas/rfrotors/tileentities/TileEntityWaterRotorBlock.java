@@ -1,7 +1,7 @@
 package com.ferreusveritas.rfrotors.tileentities;
 
+import com.ferreusveritas.rfrotors.ModBlocks;
 import com.ferreusveritas.rfrotors.blocks.BlockRotor;
-import com.ferreusveritas.rfrotors.blocks.ModBlocks;
 import com.ferreusveritas.rfrotors.lib.Constants;
 import com.ferreusveritas.rfrotors.lib.EnergyPacket;
 import com.ferreusveritas.rfrotors.lib.IModelProvider;
@@ -18,6 +18,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
@@ -31,8 +33,8 @@ public class TileEntityWaterRotorBlock extends TileEntityRotorBlock implements I
 
 	private static ResourceLocation waterRotorIronTexture;
 	private static ResourceLocation waterRotorWoodTexture;
-	private static String waterRotorResLocation = "models/waterRotor"; 
-	private static IModelCustom waterRotorModel;
+	private static String waterRotorResLocation = "models/waterrotor"; 
+	private static IModel waterRotorModel;
 	
 	private boolean wheelCW = false;
 	public static String publicName = "tileEntityWaterRotorBlock";
@@ -292,13 +294,17 @@ public class TileEntityWaterRotorBlock extends TileEntityRotorBlock implements I
 	///////////////////////////////////////////
 	
 	static public void initResources() {
-		waterRotorWoodTexture = new ResourceLocation(Constants.MODID, waterRotorResLocation + "Wood.png");
-		waterRotorIronTexture = new ResourceLocation(Constants.MODID, waterRotorResLocation + "Iron.png");
-		waterRotorModel = AdvancedModelLoader.loadModel(new ResourceLocation(Constants.MODID, waterRotorResLocation + ".obj"));
+		try {
+			waterRotorWoodTexture = new ResourceLocation(Constants.MODID, waterRotorResLocation + "wood.png");
+			waterRotorIronTexture = new ResourceLocation(Constants.MODID, waterRotorResLocation + "iron.png");
+			waterRotorModel = OBJLoader.INSTANCE.loadModel(new ResourceLocation(Constants.MODID, waterRotorResLocation + ".obj"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
-	public IModelCustom getModel() {
+	public IModel getModel() {
 		return waterRotorModel;
 	}
 	
@@ -312,8 +318,8 @@ public class TileEntityWaterRotorBlock extends TileEntityRotorBlock implements I
 	public ResourceLocation getTexture() {
 		switch(getType()){
 			default:
-			case 2: return waterRotorWoodTexture;
-			case 3: return waterRotorIronTexture;
+			case WATERROTORWOOD: return waterRotorWoodTexture;
+			case WATERROTORIRON: return waterRotorIronTexture;
 		}
 	}
 	

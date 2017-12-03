@@ -15,6 +15,7 @@ public class RFRItem extends Item {
 
 	public RFRItem(String pName) {
 		name = pName;
+		setRegistryName(name);
 		setUnlocalizedName(name);
 		setCreativeTab(RFRotors.rotorsTab);
 	}
