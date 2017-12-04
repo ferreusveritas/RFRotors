@@ -5,10 +5,10 @@ import net.minecraftforge.client.model.IModel;
 
 public interface IModelProvider {
 
-	public IModel getModel();
+	public ResourceLocation getModel();
 	
 	public ResourceLocation getTexture();
 	
-	public boolean flip();
+	public boolean isFlipped();
 	
 }

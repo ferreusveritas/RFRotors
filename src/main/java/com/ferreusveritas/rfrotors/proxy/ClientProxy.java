@@ -1,6 +1,7 @@
 package com.ferreusveritas.rfrotors.proxy;
 import com.ferreusveritas.rfrotors.ModBlocks;
 import com.ferreusveritas.rfrotors.ModItems;
+import com.ferreusveritas.rfrotors.blocks.BlockRotor;
 import com.ferreusveritas.rfrotors.lib.Constants;
 import com.ferreusveritas.rfrotors.tileentities.RenderTileEntityRotorBlock;
 import com.ferreusveritas.rfrotors.tileentities.TileEntityWaterRotorBlock;
@@ -11,8 +12,12 @@ import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 
@@ -22,7 +27,6 @@ public class ClientProxy extends CommonProxy {
 	public void preInit() {
 		OBJLoader.INSTANCE.addDomain(Constants.MODID);
 	}
-	
 	
 	public void registerTileEntities() {
 		super.registerTileEntities();
@@ -38,6 +42,10 @@ public class ClientProxy extends CommonProxy {
 		regMesh(ModItems.modernRotorBlade);
 		regMesh(ModItems.sailRotorBlade);
 		
+		for(BlockRotor.EnumType type : BlockRotor.EnumType.values()) {
+			ModelLoader.setCustomModelResourceLocation(ModItems.rotorItem, type.getMetadata(), new ModelResourceLocation(ModItems.rotorItem.getRegistryName() + type.getName(), "inventory"));
+		}
+		
 		regMesh(Item.getItemFromBlock(ModBlocks.generatorBlock));
 	}
 
@@ -46,8 +54,7 @@ public class ClientProxy extends CommonProxy {
 	}
 	
 	private void regMesh(Item item, int meta) {
-		ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
-		mesher.register(item, meta, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 
 		//Register Color Handler for the item.
 		if(item instanceof IItemColor) {

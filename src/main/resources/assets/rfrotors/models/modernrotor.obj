@@ -1,6 +1,6 @@
 # Blender v2.69 (sub 0) OBJ File: 'rotor.blend'
 # www.blender.org
-# mtllib modernRotor.mtl
+mtllib models/modernrotor.mtl
 o ModenRotor_ModernRotor
 v -0.062500 -0.062500 0.437500
 v 0.062500 -0.062500 0.437500
@@ -105,8 +105,8 @@ vt 0.000000 0.562500
 vt 0.062500 0.562500
 vt 0.062500 0.812500
 vt 0.000000 0.812500
-#usemtl None
-#s off
+usemtl None
+s off
 f 2/1 4/2 3/3 1/4
 f 6/5 5/1 7/4 8/6
 f 1/7 3/8 7/9 5/10

@@ -44,7 +44,7 @@ public class WindManager {
 		else if(world.isRaining()) {
 			weatherModifier = ModConfiguration.getWeatherMultiplierRain();
 		}
-
+		
 		return wind * heightModifier * weatherModifier;
 	}
 	

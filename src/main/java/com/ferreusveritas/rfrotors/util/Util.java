@@ -19,7 +19,7 @@ public class Util {
 	 */
 	public static boolean hasWrench(EntityPlayer pPlayer, BlockPos pos) {
 		ItemStack tool = pPlayer.getHeldItemMainhand();
-		return true;
+		return false;
 		//TODO: Port to 1.12.2
 		//return tool != null && (ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|tools") &&
 		//		(tool.getItem() instanceof IToolWrench) &&

@@ -1,13 +1,47 @@
 package com.ferreusveritas.rfrotors.tileentities;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.client.model.Attributes;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.common.model.TRSRTransformation;
+
+import java.util.BitSet;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+
+import javax.annotation.Nullable;
 
 import org.lwjgl.opengl.GL11;
 
+import com.ferreusveritas.rfrotors.blocks.BlockRotor;
+import com.ferreusveritas.rfrotors.lib.Constants;
 import com.ferreusveritas.rfrotors.lib.IModelProvider;
 import com.ferreusveritas.rfrotors.lib.IRotor;
+import com.google.common.collect.ImmutableMap;
 
 /**
  * Handles custom rendering of {@link com.ferreusveritas.rfrotors.blocks.BlockRotor}
@@ -17,52 +51,123 @@ import com.ferreusveritas.rfrotors.lib.IRotor;
  */
 public class RenderTileEntityRotorBlock extends TileEntitySpecialRenderer<TileEntityRotorBlock> {
 
-	public RenderTileEntityRotorBlock() {
-		TileEntityWindRotorBlock.initResources();
-		TileEntityWaterRotorBlock.initResources();
-	}
+	
+	private Map<BlockRotor.EnumType, IBakedModel> bakedModelMap = new EnumMap<BlockRotor.EnumType, IBakedModel>(BlockRotor.EnumType.class);
 
+	private IBakedModel getCachedBakedModel(BlockRotor.EnumType rotorType, ResourceLocation rawModelLocation) {
+		IBakedModel bakedModel = null;
+
+		BlockRotor.EnumType type = rotorType;
+		if(bakedModelMap.containsKey(type)) {
+			bakedModel = bakedModelMap.get(type);
+		} else {
+			try {
+				IModel rawModel = OBJLoader.INSTANCE.loadModel(rawModelLocation);
+				bakedModel = getBakedRotorModel(rawModel);
+				bakedModelMap.put(type, bakedModel);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		
+		return bakedModel;
+	}
+	
 	@Override
 	public void render(TileEntityRotorBlock entity, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		
-		if(!(entity instanceof IRotor) || !(entity instanceof IModelProvider)){
-			return;
-		}
+		float rotation = entity.getRotation(partialTicks);
 		
-		IRotor rotor = (IRotor) entity;
-		IModelProvider model = (IModelProvider) entity;
-		float rotation = rotor.getRotation(partialTicks);
-		EnumFacing dir = rotor.getDirection();
+		EnumFacing dir = entity.getDirection();
 		if(dir == null){
 			return;
 		}
+				
+		IBakedModel bakedRotorModel = getCachedBakedModel(entity.getType(), entity.getModel());
+		bindTexture(entity.getTexture());
 		
-		bindTexture(model.getTexture());
-		GL11.glPushMatrix();
+		GlStateManager.pushAttrib();
+		GlStateManager.pushMatrix();
 		
-		// Position the rotor on the centre of the face and turn it the right way
-		GL11.glTranslated(x + 0.5f - (dir.getFrontOffsetX() * 0.5f), y + 0.5f, z + 0.5f - (dir.getFrontOffsetZ() * 0.5f));
-		int d = (((dir.ordinal() + 2) * 5) >> 1) & 3;//Convert FD ordinals 2,3,4,5 to factors 2,0,3,1 respectively 
-		GL11.glRotatef(90.0f * d, 0, 1.0f, 0);
+		GlStateManager.translate(x, y, z);
 		
-		GL11.glRotatef(rotation, 0, 0, 1.0f);
+		// Position the rotor on the centre of the face 
+		GL11.glTranslated(0.5f - (dir.getFrontOffsetX() * 0.5f), 0.5f, 0.5f - (dir.getFrontOffsetZ() * 0.5f));
+
+		//Now turn it the right way
+		int d = (((dir.ordinal() + 2) * 5) >> 1) & 3;//Convert EnumFacing ordinals 2,3,4,5 to factors 2,0,3,1 respectively
+		GlStateManager.rotate(90.0f * d, 0, 1.0f, 0);
+				
+		//Now rotate it along it's hub to it's current orientation
+		GlStateManager.rotate(rotation, 0, 0, 1.0f);
 		
-		boolean flipped = model.flip(); 
+		//Some models need to change direction depending on which way they are turning
+		boolean flipped = entity.isFlipped();
 		
 		if(flipped){
-			GL11.glScalef(-1.0f, 1.0f, 1.0f);
+			GlStateManager.scale(-1.0f, 1.0f, 1.0f);
 			GL11.glFrontFace(GL11.GL_CW);
 		}
 		
-		GL11.glPushMatrix();
-		//TODO: Port to 1.12.2
-		//model.getModel().renderAll();
-		GL11.glPopMatrix();
+		GlStateManager.disableLighting();
+		
+		Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(
+				getWorld().getBlockState(entity.getPos()),
+				bakedRotorModel,
+				1.0f, //Brightness
+				1.0f, 1.0f, 1.0f);//R, G, B
 		
 		if(flipped){
 			GL11.glFrontFace(GL11.GL_CCW);
 		}
 		
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
+		GlStateManager.popAttrib();
+	}
+	
+	/**
+	 * This is necessary for Minecraft to use for an
+	 * external 3d mesh that uses 0.0 to 1.0 for it's
+	 * UV coordinates.  Minecraft apparently internally
+	 * uses 0.0 to 16.0 for it's UVs.
+	 * 
+	 * @author ferreusveritas
+	 *
+	 */
+	private static class BlenderOBJAtlas extends TextureAtlasSprite {
+		public static BlenderOBJAtlas instance = new BlenderOBJAtlas();
+		
+		protected BlenderOBJAtlas() {
+			super("blender");
+		}
+		
+		@Override
+		public float getInterpolatedU(double u) {
+			return (float)u / 16;//Scale the coordinates down by 16x
+		}
+		
+		@Override
+		public float getInterpolatedV(double v) {
+			return (float)v / -16;//Also flips the V coordinates in addition to scaling
+		}
+		
+	}
+	
+	private IBakedModel getBakedRotorModel(IModel model) {
+		ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
+		builder.put("ambient", "false");//Also available: "gui3d", "flip-v"
+		model = model.process(builder.build());
+			
+		return model.bake(
+			TRSRTransformation.identity(),
+			Attributes.DEFAULT_BAKED_FORMAT,
+			new Function<ResourceLocation, TextureAtlasSprite>() {
+				@Override
+				public TextureAtlasSprite apply(ResourceLocation location) {
+					return BlenderOBJAtlas.instance;
+				}
+			}
+		);
 	}
 }

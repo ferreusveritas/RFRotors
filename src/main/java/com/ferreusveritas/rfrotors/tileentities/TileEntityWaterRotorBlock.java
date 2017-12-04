@@ -4,8 +4,6 @@ import com.ferreusveritas.rfrotors.ModBlocks;
 import com.ferreusveritas.rfrotors.blocks.BlockRotor;
 import com.ferreusveritas.rfrotors.lib.Constants;
 import com.ferreusveritas.rfrotors.lib.EnergyPacket;
-import com.ferreusveritas.rfrotors.lib.IModelProvider;
-import com.ferreusveritas.rfrotors.lib.IRotor;
 import com.ferreusveritas.rfrotors.lib.ModConfiguration;
 
 import net.minecraft.block.Block;
@@ -18,8 +16,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
@@ -29,12 +25,11 @@ import net.minecraftforge.fluids.FluidRegistry;
  * {@link RenderTileEntityRotorBlock} as well as the type of the rotor used
  * to create it.
  */
-public class TileEntityWaterRotorBlock extends TileEntityRotorBlock implements IRotor, IModelProvider {
+public class TileEntityWaterRotorBlock extends TileEntityRotorBlock {
 
-	private static ResourceLocation waterRotorIronTexture;
-	private static ResourceLocation waterRotorWoodTexture;
 	private static String waterRotorResLocation = "models/waterrotor"; 
-	private static IModel waterRotorModel;
+	private static ResourceLocation waterRotorWoodTexture = new ResourceLocation(Constants.MODID, waterRotorResLocation + "wood.png");
+	private static ResourceLocation waterRotorIronTexture = new ResourceLocation(Constants.MODID, waterRotorResLocation + "iron.png");
 	
 	private boolean wheelCW = false;
 	public static String publicName = "tileEntityWaterRotorBlock";
@@ -293,19 +288,9 @@ public class TileEntityWaterRotorBlock extends TileEntityRotorBlock implements I
 	//  Model Interface
 	///////////////////////////////////////////
 	
-	static public void initResources() {
-		try {
-			waterRotorWoodTexture = new ResourceLocation(Constants.MODID, waterRotorResLocation + "wood.png");
-			waterRotorIronTexture = new ResourceLocation(Constants.MODID, waterRotorResLocation + "iron.png");
-			waterRotorModel = OBJLoader.INSTANCE.loadModel(new ResourceLocation(Constants.MODID, waterRotorResLocation + ".obj"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	@Override
-	public IModel getModel() {
-		return waterRotorModel;
+	public ResourceLocation getModel() {
+		return new ResourceLocation(Constants.MODID, waterRotorResLocation + ".obj");
 	}
 	
 	/**
@@ -324,7 +309,7 @@ public class TileEntityWaterRotorBlock extends TileEntityRotorBlock implements I
 	}
 	
 	@Override
-	public boolean flip() {
+	public boolean isFlipped() {
 		if(speed < 0){
 			wheelCW = true;
 		} else 

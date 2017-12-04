@@ -1,0 +1,9 @@
+# Blender MTL File: 'rotor.blend'
+# Material Count: 1
+
+newmtl None
+Ka 1.0 1.0 1.0
+Kd 1.0 1.0 1.0
+d 1
+#map_Kd /home/glitch/Desktop/rotortexture.png
+map_Kd minecraft:blocks/redstone_block

@@ -3,6 +3,8 @@ package com.ferreusveritas.rfrotors.tileentities;
 import java.util.ArrayList;
 
 import com.ferreusveritas.rfrotors.blocks.BlockRotor;
+import com.ferreusveritas.rfrotors.lib.IModelProvider;
+import com.ferreusveritas.rfrotors.lib.IRotor;
 import com.ferreusveritas.rfrotors.util.RotorDamageSource;
 
 import net.minecraft.block.state.IBlockState;
@@ -18,14 +20,14 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileEntityRotorBlock extends TileEntity implements ITickable {
+public abstract class TileEntityRotorBlock extends TileEntity implements ITickable, IRotor, IModelProvider {
 
 	private static final String NBT_ROTOR_TYPE = "RFRRotorType";
 	private static final String NBT_ROTOR_DIR = "RFRRotorDir";
 	private static final String NBT_ROTOR_SPEED = "RFRRotorSpeed";
 	protected static int energyPacketLength = 4;
 	
-	protected EnumFacing rotorDir = null;
+	protected EnumFacing rotorDir = EnumFacing.NORTH;
 	protected float speed = 0.0f;//Speed in degrees per tick;
 	protected float oldSpeed = 0.0f;
 	protected float rotation = 0.0f;

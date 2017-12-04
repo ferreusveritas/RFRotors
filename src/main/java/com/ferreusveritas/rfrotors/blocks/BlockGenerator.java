@@ -1,7 +1,8 @@
 package com.ferreusveritas.rfrotors.blocks;
 
+import com.ferreusveritas.rfrotors.ModBlocks;
 import com.ferreusveritas.rfrotors.RFRotors;
-import com.ferreusveritas.rfrotors.items.ItemBlockRotor;
+import com.ferreusveritas.rfrotors.items.ItemRotor;
 import com.ferreusveritas.rfrotors.lib.*;
 import com.ferreusveritas.rfrotors.tileentities.TileEntityGeneratorBlock;
 import com.ferreusveritas.rfrotors.util.Lang;
@@ -130,7 +131,7 @@ public class BlockGenerator extends BlockDirectional implements ITileEntityProvi
 				// Attach a rotor if the player is holding one
 				ItemStack equippedItem = player.getHeldItemMainhand();
 				
-				if(equippedItem != null && (equippedItem.getItem() instanceof ItemBlockRotor) ) {
+				if(equippedItem != null && (equippedItem.getItem() instanceof ItemRotor) ) {
 					// Get the direction offset of the face the player clicked
 					if(facing == EnumFacing.DOWN || facing == EnumFacing.UP) {
 						return false;
@@ -138,18 +139,17 @@ public class BlockGenerator extends BlockDirectional implements ITileEntityProvi
 					
 					BlockPos dPos = pos.offset(facing);
 					
-					ItemBlockRotor equippedRotor = (ItemBlockRotor)equippedItem.getItem();
+					ItemRotor equippedRotor = (ItemRotor)equippedItem.getItem();
 					int radius = equippedRotor.getPlacementRadius(equippedItem);
 					
 					// Check that the tile entity for this block doesn't already have a rotor
 					// and that a rotor can be placed at the offset
-					TileEntityGeneratorBlock entity = (TileEntityGeneratorBlock)world.getTileEntity(pos);
-					if(BlockRotor.canPlace(world, dPos, player, facing, radius) && !entity.hasRotor()) {
+					TileEntityGeneratorBlock generatorEntity = (TileEntityGeneratorBlock)world.getTileEntity(pos);
+					if(BlockRotor.canPlace(world, dPos, player, facing, radius) && !generatorEntity.hasRotor()) {
 						
 						// Attach the rotor to the generator
-						//TODO: Port to 1.12.2
-						//pWorld.setBlock(dx, dy, dz, ModBlocks.rotorBlock, equippedItem.getItemDamage(), 3);
-						entity.setRotor(facing);
+						world.setBlockState(dPos, ModBlocks.rotorBlock.getDefaultState().withProperty(BlockRotor.TYPE, BlockRotor.EnumType.byMetadata(equippedItem.getItemDamage())), 3);
+						generatorEntity.setRotor(facing);
 						
 						// Remove rotor from player's inventory
 						
@@ -157,7 +157,7 @@ public class BlockGenerator extends BlockDirectional implements ITileEntityProvi
 							equippedItem.shrink(1);
 						}
 						else {
-							player.setHeldItem(hand, null);
+							player.setHeldItem(hand, ItemStack.EMPTY);
 						}
 					}
 				}

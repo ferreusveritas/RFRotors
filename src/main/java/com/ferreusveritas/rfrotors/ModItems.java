@@ -1,5 +1,6 @@
 package com.ferreusveritas.rfrotors;
 
+import com.ferreusveritas.rfrotors.items.ItemRotor;
 import com.ferreusveritas.rfrotors.items.RFRItem;
 
 import net.minecraft.block.Block;
@@ -19,6 +20,8 @@ public final class ModItems {
 	public static RFRItem sailRotorBlade;
 	public static RFRItem modernRotorBlade;
 	
+	public static RFRItem rotorItem;
+	
 	/**
 	 * Creates {@link RFRItem} instances of all the items in the mod.
 	 */
@@ -30,6 +33,8 @@ public final class ModItems {
 		
 		sailRotorBlade = new RFRItem("sailRotorBlade");
 		modernRotorBlade = new RFRItem("modernRotorBlade");
+		
+		rotorItem = new ItemRotor();
 	}
 
 	public static void register(IForgeRegistry<Item> registry) {
@@ -40,8 +45,9 @@ public final class ModItems {
 		registry.register(sailRotorBlade);
 		registry.register(modernRotorBlade);
 		
+		registry.register(rotorItem);
+		
 		registerItemBlock(registry, ModBlocks.generatorBlock);
-		registerItemBlock(registry, ModBlocks.rotorBlock);
 	}
 
 	public static void registerItemBlock(IForgeRegistry<Item> registry, Block block) {

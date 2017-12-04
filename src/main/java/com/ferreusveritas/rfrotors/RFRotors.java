@@ -8,6 +8,7 @@ import com.ferreusveritas.rfrotors.util.WindManager;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -17,6 +18,8 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod(modid = Constants.MODID, name = Constants.NAME, version = Constants.VERSION, dependencies = "required-after:ThermalFoundation;required-after:ThermalExpansion;after:ProjRed|Core")
@@ -40,7 +43,6 @@ public class RFRotors {
 	@EventHandler
 	public void init(FMLInitializationEvent pEvent) {
 		proxy.registerTileEntities();
-		proxy.registerRenderers();
 	}
 	
 	@EventHandler
@@ -69,9 +71,14 @@ public class RFRotors {
 		
 		@SubscribeEvent(priority = EventPriority.LOWEST)
 		public static void registerRecipes(final RegistryEvent.Register<IRecipe> event) {
-			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX RegistrationHandler:registerRecipes XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 			final IForgeRegistry<IRecipe> registry = event.getRegistry();
 			ModRecipes.register(registry);
+		}
+		
+		@SideOnly(Side.CLIENT)
+		@SubscribeEvent
+		public static void registerModels(ModelRegistryEvent event) {
+			proxy.registerRenderers();
 		}
 	}
 }

@@ -1,6 +1,6 @@
 # Blender v2.69 (sub 0) OBJ File: 'rotor.blend'
 # www.blender.org
-# mtllib sailRotor.mtl
+mtllib models/sailrotor.mtl
 o SailRotor
 v -0.062488 -3.499429 0.250041
 v -0.062490 -0.249959 0.250041
@@ -175,8 +175,8 @@ vt 1.000000 1.000000
 vt 1.000000 0.625000
 vt 0.281250 0.625000
 vt 0.281250 1.000000
-#usemtl None
-#s off
+usemtl None
+s off
 f 1/1 3/2 7/3 5/4
 f 2/5 4/6 3/7 1/8
 f 2/9 1/10 5/8 6/5

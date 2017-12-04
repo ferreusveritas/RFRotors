@@ -1,5 +1,6 @@
 package com.ferreusveritas.rfrotors.tileentities;
 
+import com.ferreusveritas.rfrotors.ModBlocks;
 import com.ferreusveritas.rfrotors.blocks.BlockGenerator;
 import com.ferreusveritas.rfrotors.lib.EnergyPacket;
 import com.ferreusveritas.rfrotors.lib.EnergyStorage;
@@ -191,9 +192,7 @@ public final class TileEntityGeneratorBlock extends TileEntity implements IEnerg
 		if(hasRotor()){
 			IRotor rotor = getRotor();
 			rotor.attach(rotorDir);
-			//TODO: Port to 1.12.2
-			//world.setBlockState(pos, BlockGenerator.encodeDirToMetadata(rotorDir));
-			//worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, BlockGenerator.encodeDirToMetadata(rotorDir), 3);
+			world.setBlockState(pos, ModBlocks.generatorBlock.getDefaultState().withProperty(BlockGenerator.FACING, rotorDir));
 		}
 	}
 	

@@ -1,18 +1,19 @@
 itemGroup.tabRFRotors=RF Rotors
 
-tile.rfrotors_generatorBlock.name=Rotary Generator Block
+tile.generatorBlock.name=Rotary Generator Block
 
-item.rfrotors_dustChromel.name=Aerochromel Blend
-item.rfrotors_ingotChromel.name=Aerochromel Ingot
-item.rfrotors_nuggetChromel.name=Aerochromel Nugget
-item.rfrotors_modernRotorBlade.name=Tin Plated Aerochromel Rotor Blade
-item.rfrotors_sailRotorBlade.name=Sail Rotor Blade
+item.dustChromel.name=Aerochromel Blend
+item.ingotChromel.name=Aerochromel Ingot
+item.nuggetChromel.name=Aerochromel Nugget
+item.modernRotorBlade.name=Tin Plated Aerochromel Rotor Blade
+item.sailRotorBlade.name=Sail Rotor Blade
 
-tile.rfrotors_rotor.name=Rotor
-tile.rfrotors_rotor.sailRotor.name=Sail Rotor
-tile.rfrotors_rotor.modernRotor.name=Tin Plated Aerochromel Rotor
-tile.rfrotors_rotor.waterRotorWood.name=Wooden Watermill Rotor
-tile.rfrotors_rotor.waterRotorIron.name=Iron Watermill Rotor
+item.rfrotor.windrotorsail.name=Sail Rotor
+item.rfrotor.windrotormodern.name=Tin Plated Aerochromel Rotor
+item.rfrotor.waterrotorwood.name=Wooden Watermill Rotor
+item.rfrotor.waterrotoriron.name=Iron Watermill Rotor
+
+tile.rotor.name=Rotor
 
 info.rfrotors.energy.stored=Stored
 info.rfrotors.energy.generating=Generating

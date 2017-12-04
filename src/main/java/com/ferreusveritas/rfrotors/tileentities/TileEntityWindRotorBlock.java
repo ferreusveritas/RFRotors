@@ -4,14 +4,11 @@ import com.ferreusveritas.rfrotors.RFRotors;
 import com.ferreusveritas.rfrotors.lib.Constants;
 import com.ferreusveritas.rfrotors.lib.EnergyPacket;
 import com.ferreusveritas.rfrotors.lib.IModelProvider;
-import com.ferreusveritas.rfrotors.lib.IRotor;
 import com.ferreusveritas.rfrotors.lib.ModConfiguration;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.obj.OBJLoader;
 
 /**
  * Tile entity for the {@link com.ferreusveritas.rfrotors.blocks.BlockRotor}
@@ -19,14 +16,12 @@ import net.minecraftforge.client.model.obj.OBJLoader;
  * {@link RenderTileEntityRotorBlock} as well as the type of the rotor used
  * to create it.
  */
-public class TileEntityWindRotorBlock extends TileEntityRotorBlock implements IRotor, IModelProvider {
+public class TileEntityWindRotorBlock extends TileEntityRotorBlock implements IModelProvider {
 	
-	private static ResourceLocation sailRotorTexture;
-	private static ResourceLocation modernRotorTexture;
 	private static String sailRotorResLocation = "models/sailrotor";
 	private static String modernRotorResLocation = "models/modernrotor";
-	private static IModel sailRotorModel;
-	private static IModel modernRotorModel;
+	private static ResourceLocation sailRotorTexture = new ResourceLocation(Constants.MODID, sailRotorResLocation + ".png");
+	private static ResourceLocation modernRotorTexture = new ResourceLocation(Constants.MODID, modernRotorResLocation + ".png");
 	
 	public static String publicName = "tileEntityWindRotorBlock";
 	private static final float degreesPerRFPerTick = ModConfiguration.getAngularVelocityPerRF();
@@ -75,15 +70,16 @@ public class TileEntityWindRotorBlock extends TileEntityRotorBlock implements IR
 	
 	@Override
 	protected void updateFlow() {
-		int spot = (int) ((world.getWorldTime() ^ pos.getX() ^ pos.getY() ^ pos.getZ()) & 0x1FF);
+		int spot = (world.rand.nextInt() ^ pos.getX() ^ pos.getY() ^ pos.getZ()) & 0x1FF;
 		long spotmask = (1L << (spot & 0x3f));
 		
 		if((fieldMask & spotmask) != 0 ){
 			int dx = (spot & 7) - 3;
 			int dy = ((spot >> 3) & 7) - 3;
 			int dz = (spot >> 6) & 7;
-			
+						
 			BlockPos dPos = pos.up(dy).offset(rotorDir.rotateY(), dx);
+			
 			boolean isAir = world.isAirBlock(dPos.offset(rotorDir, dz)) && world.isAirBlock(dPos.offset(rotorDir, -dz));
 			
 			long before = clearanceFields[dz];
@@ -102,6 +98,7 @@ public class TileEntityWindRotorBlock extends TileEntityRotorBlock implements IR
 					flow = 44 - Long.bitCount(clearanceFields[1] | clearanceFields[2] | clearanceFields[3] | clearanceFields[4] | clearanceFields[5] | clearanceFields[6] | clearanceFields[7] );
 				}
 			}
+			
 		}
 		
 	}
@@ -149,23 +146,12 @@ public class TileEntityWindRotorBlock extends TileEntityRotorBlock implements IR
 	//  Model Interface
 	///////////////////////////////////////////
 	
-	static public void initResources() {
-		try {
-			sailRotorTexture = new ResourceLocation(Constants.MODID, sailRotorResLocation + ".png");
-			modernRotorTexture = new ResourceLocation(Constants.MODID, modernRotorResLocation + ".png");
-			sailRotorModel = OBJLoader.INSTANCE.loadModel(new ResourceLocation(Constants.MODID, sailRotorResLocation + ".obj"));
-			modernRotorModel = OBJLoader.INSTANCE.loadModel(new ResourceLocation(Constants.MODID, modernRotorResLocation + ".obj"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	@Override
-	public IModel getModel() {
+	public ResourceLocation getModel() {
 		switch(getType()){
 			default:
-			case WINDROTORSAIL: return sailRotorModel;
-			case WINDROTORMODERN: return modernRotorModel;
+			case WINDROTORSAIL: return new ResourceLocation(Constants.MODID, sailRotorResLocation + ".obj");
+			case WINDROTORMODERN: return new ResourceLocation(Constants.MODID, modernRotorResLocation + ".obj");
 		}
 	}
 	
@@ -186,7 +172,7 @@ public class TileEntityWindRotorBlock extends TileEntityRotorBlock implements IR
 	}
 	
 	@Override
-	public boolean flip() {
+	public boolean isFlipped() {
 		return false;
 	}
 	
