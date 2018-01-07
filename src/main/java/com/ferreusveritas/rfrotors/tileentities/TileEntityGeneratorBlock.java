@@ -23,6 +23,7 @@ import net.minecraft.util.ITickable;
 public final class TileEntityGeneratorBlock extends TileEntity implements IEnergyProvider, ITickable {
 
 	private EnergyStorage storage;
+	@SuppressWarnings("unused")
 	private static final int tunnelRange = 10;
 
 	private static final String NBT_ROTOR_DIR = "RFRRotorDir";

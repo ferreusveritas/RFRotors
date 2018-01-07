@@ -1,7 +1,6 @@
 package com.ferreusveritas.rfrotors.blocks;
 
 import com.ferreusveritas.rfrotors.ModItems;
-import com.ferreusveritas.rfrotors.RFRotors;
 import com.ferreusveritas.rfrotors.lib.IRotor;
 import com.ferreusveritas.rfrotors.tileentities.TileEntityGeneratorBlock;
 import com.ferreusveritas.rfrotors.tileentities.TileEntityRotorBlock;
@@ -11,31 +10,23 @@ import com.ferreusveritas.rfrotors.util.Util;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
-import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Rotor blocks are created when a {@link BlockGenerator} is right clicked with
