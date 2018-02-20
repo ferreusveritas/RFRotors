@@ -1,7 +1,6 @@
 package com.ferreusveritas.rfrotors.util;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 /**
@@ -18,7 +17,7 @@ public class Util {
 	 * @return {@code true} if the player can wrench and {@code false} otherwise
 	 */
 	public static boolean hasWrench(EntityPlayer pPlayer, BlockPos pos) {
-		ItemStack tool = pPlayer.getHeldItemMainhand();
+		//ItemStack tool = pPlayer.getHeldItemMainhand();
 		return false;
 		//TODO: Port to 1.12.2
 		//return tool != null && (ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|tools") &&
