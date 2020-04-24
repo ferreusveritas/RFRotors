@@ -1,0 +1,30 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " x ",
+        "gmg",
+        " c "
+    ],
+    "key": {
+        "x": {
+            "item": "minecraft:redstone"
+        },
+        "g": {
+			"item": "thermalfoundation:material",
+			"data": 291
+        },
+        "m": {
+			"item": "thermalexpansion:frame",
+			"data": 0
+        },
+        "c": {
+			"item": "thermalfoundation:material",
+			"data": 514
+        }
+    },
+    "result": {
+        "item": "rfrotors:generatorblock",
+		"data": 0,
+        "count": 1
+    }
+}

@@ -6,10 +6,12 @@ import com.ferreusveritas.rfrotors.tileentities.TileEntityGeneratorBlock;
 import com.ferreusveritas.rfrotors.tileentities.TileEntityRotorBlock;
 import com.ferreusveritas.rfrotors.tileentities.TileEntityWaterRotorBlock;
 import com.ferreusveritas.rfrotors.tileentities.TileEntityWindRotorBlock;
-import com.ferreusveritas.rfrotors.util.Util;
 
+import cofh.core.util.RayTracer;
+import cofh.core.util.helpers.WrenchHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -25,6 +27,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -87,11 +90,14 @@ public class BlockRotor extends BlockContainer {
 	
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-	//public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float fx, float fy, float fz) {
 	
-		if(player.isSneaking() && Util.hasWrench(player, pos)){
-			dismantle(world, pos);
-			return true;
+		RayTraceResult traceResult = RayTracer.retrace(player);
+		
+		if (player.isSneaking()) {
+			if (WrenchHelper.isHoldingUsableWrench(player, traceResult)) {
+				dismantle(world, pos);
+				return true;
+			}
 		}
 		
 		return false;
@@ -132,6 +138,36 @@ public class BlockRotor extends BlockContainer {
 		dismantle(world, pos);
 	}
 	
+	
+	@Override
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		super.neighborChanged(state, world, pos, blockIn, fromPos);
+		
+		IRotor rotor = getRotor(world, pos);
+		if(rotor != null) {
+			EnumFacing rotorFacing = rotor.getDirection();
+			BlockPos parentPos = pos.offset(rotorFacing.getOpposite());
+			IBlockState genState = world.getBlockState(parentPos);
+			if(genState.getBlock() instanceof BlockGenerator) {
+				EnumFacing genFacing = genState.getValue(BlockDirectional.FACING);
+				if(rotorFacing != genFacing) {
+					//Dismantle the rotor because it's not attached to a generator that's facing it's direction
+					dismantle(world, pos);
+					TileEntityGeneratorBlock generatorEntity = (TileEntityGeneratorBlock)world.getTileEntity(parentPos);
+					if(generatorEntity != null && generatorEntity instanceof TileEntityGeneratorBlock){
+						generatorEntity.detach();//Notify the generator of the detachment
+					}
+				}
+			} else {
+				//Dismantle the rotor because it's not attached to a generator
+				dismantle(world, pos);
+			}
+		} else {
+			//Dismantle the rotor because it's somehow missing it's tileEntity
+			dismantle(world, pos);
+		}
+	}
+	
 	/**
 	 * Remove the block from the world and drop the corresponding rotor as an
 	 * item. Does not notify the parent {@link TurbineBlock} of any changes.
@@ -148,6 +184,8 @@ public class BlockRotor extends BlockContainer {
 			if (!world.isRemote && !world.restoringBlockSnapshots) {// do not drop items while restoring blockstates, prevents item dupe
 				spawnAsEntity(world, pos, new ItemStack(ModItems.rotorItem, 1, rotor.getType().getMetadata()));
 			}
+		} else {
+			world.setBlockToAir(pos);//Just in case
 		}
 	}
 	

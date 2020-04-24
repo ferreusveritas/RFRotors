@@ -1,7 +1,7 @@
 package com.ferreusveritas.rfrotors.tileentities;
 
+import com.ferreusveritas.rfrotors.ModConstants;
 import com.ferreusveritas.rfrotors.RFRotors;
-import com.ferreusveritas.rfrotors.lib.Constants;
 import com.ferreusveritas.rfrotors.lib.EnergyPacket;
 import com.ferreusveritas.rfrotors.lib.IModelProvider;
 import com.ferreusveritas.rfrotors.lib.ModConfiguration;
@@ -20,10 +20,10 @@ public class TileEntityWindRotorBlock extends TileEntityRotorBlock implements IM
 	
 	private static String sailRotorResLocation = "models/sailrotor";
 	private static String modernRotorResLocation = "models/modernrotor";
-	private static ResourceLocation sailRotorTexture = new ResourceLocation(Constants.MODID, sailRotorResLocation + ".png");
-	private static ResourceLocation modernRotorTexture = new ResourceLocation(Constants.MODID, modernRotorResLocation + ".png");
+	private static ResourceLocation sailRotorTexture = new ResourceLocation(ModConstants.MODID, sailRotorResLocation + ".png");
+	private static ResourceLocation modernRotorTexture = new ResourceLocation(ModConstants.MODID, modernRotorResLocation + ".png");
 	
-	public static String publicName = "tileEntityWindRotorBlock";
+	public static final String publicName = "tileEntityWindRotorBlock";
 	private static final float degreesPerRFPerTick = ModConfiguration.getAngularVelocityPerRF();
 	
 	
@@ -150,8 +150,8 @@ public class TileEntityWindRotorBlock extends TileEntityRotorBlock implements IM
 	public ResourceLocation getModel() {
 		switch(getType()){
 			default:
-			case WINDROTORSAIL: return new ResourceLocation(Constants.MODID, sailRotorResLocation + ".obj");
-			case WINDROTORMODERN: return new ResourceLocation(Constants.MODID, modernRotorResLocation + ".obj");
+			case WINDROTORSAIL: return new ResourceLocation(ModConstants.MODID, sailRotorResLocation + ".obj");
+			case WINDROTORMODERN: return new ResourceLocation(ModConstants.MODID, modernRotorResLocation + ".obj");
 		}
 	}
 	

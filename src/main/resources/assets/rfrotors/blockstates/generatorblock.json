@@ -1,10 +1,10 @@
 {
     "variants": {
-		"facing=down": { "model": "dirt" },
-		"facing=up": { "model": "dirt" },
-        "facing=north": { "model": "rfrotors:generatorblock" },
-        "facing=east":  { "model": "rfrotors:generatorblock", "y": 90 },
-        "facing=south": { "model": "rfrotors:generatorblock", "y": 180 },
-        "facing=west":  { "model": "rfrotors:generatorblock", "y": 270 }
+		"facing=down":  { "model": "rfrotors:generatorblock", "x": 180 },
+		"facing=up":    { "model": "rfrotors:generatorblock" },
+        "facing=north": { "model": "rfrotors:generatorblock", "x": 90 },
+        "facing=east":  { "model": "rfrotors:generatorblock", "x": 90, "y":90 },
+        "facing=south": { "model": "rfrotors:generatorblock", "x": 270 },
+        "facing=west":  { "model": "rfrotors:generatorblock", "x": 90, "y":270 }
     }
 }

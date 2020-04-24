@@ -3,19 +3,20 @@ package com.ferreusveritas.rfrotors.blocks;
 import com.ferreusveritas.rfrotors.ModBlocks;
 import com.ferreusveritas.rfrotors.RFRotors;
 import com.ferreusveritas.rfrotors.items.ItemRotor;
-import com.ferreusveritas.rfrotors.lib.*;
+import com.ferreusveritas.rfrotors.lib.EnergyStorage;
+import com.ferreusveritas.rfrotors.lib.ModConfiguration;
 import com.ferreusveritas.rfrotors.tileentities.TileEntityGeneratorBlock;
 import com.ferreusveritas.rfrotors.util.Lang;
-import com.ferreusveritas.rfrotors.util.Util;
 import com.google.common.base.Preconditions;
 
+import cofh.core.util.RayTracer;
+import cofh.core.util.helpers.WrenchHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,6 +27,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
@@ -44,8 +46,6 @@ import net.minecraft.world.World;
  * corresponding {@link BlockRotor}.
  */
 public class BlockGenerator extends BlockDirectional implements ITileEntityProvider {
-
-	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
 	protected final int maximumEnergyTransfer;
 	protected final int capacity;
@@ -113,19 +113,20 @@ public class BlockGenerator extends BlockDirectional implements ITileEntityProvi
 	
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-	//public boolean onBlockActivated(World pWorld, int pX, int pY, int pZ, EntityPlayer pPlayer, int pSide, float pDx, float pDy, float pDz) {
 		if(!world.isRemote) {
 			if(player.isSneaking()) {
-				// Dismantle block if player has a wrench
-				if(Util.hasWrench(player, pos)) {
+				RayTraceResult traceResult = RayTracer.retrace(player);
+								
+				if (WrenchHelper.isHoldingUsableWrench(player, traceResult)) {
+					// Dismantle block if player has a wrench
 					dismantle(world, pos);
-					return true;
 				}
 				else {
 					// Print energy information otherwise
 					printChatInfo(world, pos, player);
-					return true;
 				}
+				
+				return true;
 			}
 			else {
 				// Attach a rotor if the player is holding one
@@ -152,17 +153,14 @@ public class BlockGenerator extends BlockDirectional implements ITileEntityProvi
 						generatorEntity.setRotor(facing);
 						
 						// Remove rotor from player's inventory
-						
-						if(equippedItem.getCount() > 1) {
+						if(!player.isCreative()) {
 							equippedItem.shrink(1);
-						}
-						else {
-							player.setHeldItem(hand, ItemStack.EMPTY);
 						}
 					}
 				}
 			}
 		}
+		
 		return false;
 	}
 

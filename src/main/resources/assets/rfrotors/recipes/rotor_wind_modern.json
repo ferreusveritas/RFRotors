@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " b ",
+        " g ",
+        "b b"
+    ],
+    "key": {
+        "b": {
+            "item": "rfrotors:modernrotorblade"
+        },
+        "g": {
+			"item": "thermalfoundation:material",
+			"data": 262
+        }
+    },
+    "result": {
+        "item": "rfrotors:rfrotor",
+		"data": 1,
+        "count": 1
+    }
+}

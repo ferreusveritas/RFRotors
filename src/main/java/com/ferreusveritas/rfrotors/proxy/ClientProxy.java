@@ -1,8 +1,8 @@
 package com.ferreusveritas.rfrotors.proxy;
 import com.ferreusveritas.rfrotors.ModBlocks;
+import com.ferreusveritas.rfrotors.ModConstants;
 import com.ferreusveritas.rfrotors.ModItems;
 import com.ferreusveritas.rfrotors.blocks.BlockRotor;
-import com.ferreusveritas.rfrotors.lib.Constants;
 import com.ferreusveritas.rfrotors.tileentities.RenderTileEntityRotorBlock;
 import com.ferreusveritas.rfrotors.tileentities.TileEntityWaterRotorBlock;
 import com.ferreusveritas.rfrotors.tileentities.TileEntityWindRotorBlock;
@@ -20,7 +20,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void preInit() {
-		OBJLoader.INSTANCE.addDomain(Constants.MODID);
+		OBJLoader.INSTANCE.addDomain(ModConstants.MODID);
 	}
 	
 	public void registerTileEntities() {

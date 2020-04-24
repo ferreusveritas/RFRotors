@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "bbb",
+        "bgb",
+        "bbb"
+    ],
+    "key": {
+        "b": {
+            "item": "minecraft:boat"
+        },
+        "g": {
+			"item": "thermalfoundation:material",
+			"data": 291
+        }
+    },
+    "result": {
+        "item": "rfrotors:rfrotor",
+		"data": 2,
+        "count": 1
+    }
+}

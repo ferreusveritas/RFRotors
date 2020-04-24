@@ -1,6 +1,6 @@
 package com.ferreusveritas.rfrotors.lib;
 
-import cofh.api.energy.IEnergyStorage;
+import cofh.redstoneflux.api.IEnergyStorage;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**

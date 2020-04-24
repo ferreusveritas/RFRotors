@@ -1,0 +1,30 @@
+{
+	"type": "thermalfoundation:fluid_shapeless",
+	"result": {
+		"item": "rfrotors:dustchromel",
+		"data": 0,
+		"count": 1
+	},
+	"ingredients": [
+		{
+			"type": "forge:ore_dict",
+			"ore": "dustPlatinum"
+		},
+		{
+			"type": "forge:ore_dict",
+			"ore": "dustPlatinum"
+		},
+		{
+			"type": "forge:ore_dict",
+			"ore": "dustNickel"
+		},
+		{
+			"type": "forge:ore_dict",
+			"ore": "dustNickel"
+		},
+		{
+			"type": "thermalfoundation:fluid",
+			"fluid": "aerotheum"
+		}
+	]
+}

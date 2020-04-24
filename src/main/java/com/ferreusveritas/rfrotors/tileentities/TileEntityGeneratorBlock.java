@@ -7,8 +7,8 @@ import com.ferreusveritas.rfrotors.lib.EnergyStorage;
 import com.ferreusveritas.rfrotors.lib.IRotor;
 import com.ferreusveritas.rfrotors.lib.ModConfiguration;
 
-import cofh.api.energy.IEnergyProvider;
-import cofh.api.energy.IEnergyReceiver;
+import cofh.redstoneflux.api.IEnergyProvider;
+import cofh.redstoneflux.api.IEnergyReceiver;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;

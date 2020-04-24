@@ -1,6 +1,5 @@
 package com.ferreusveritas.rfrotors;
 
-import com.ferreusveritas.rfrotors.lib.Constants;
 import com.ferreusveritas.rfrotors.lib.ModConfiguration;
 import com.ferreusveritas.rfrotors.proxy.CommonProxy;
 import com.ferreusveritas.rfrotors.util.WindManager;
@@ -22,10 +21,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
-@Mod(modid = Constants.MODID, name = Constants.NAME, version = Constants.VERSION, dependencies = "required-after:ThermalFoundation;required-after:ThermalExpansion;after:ProjRed|Core")
+@Mod(modid = ModConstants.MODID, name = ModConstants.NAME, version = ModConstants.VERSION, dependencies = ModConstants.DEPENDENCIES)
 public class RFRotors {
 
-	@SidedProxy(clientSide = Constants.CLIENT_PROXY_CLASS, serverSide = Constants.SERVER_PROXY_CLASS)
+	@SidedProxy(clientSide = ModConstants.CLIENT_PROXY_CLASS, serverSide = ModConstants.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
 	
 	public static WindManager windManager = new WindManager();
@@ -54,7 +53,7 @@ public class RFRotors {
 	// REGISTRATION
 	///////////////////////////////////////////
 	
-	@Mod.EventBusSubscriber(modid = Constants.MODID)
+	@Mod.EventBusSubscriber(modid = ModConstants.MODID)
 	public static class RegistrationHandler {
 
 		@SubscribeEvent

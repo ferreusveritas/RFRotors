@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"n"
+	],
+	"key": {
+		"n": {
+			"item": "rfrotors:ingotchromel"
+		}
+	},
+	"result": {
+		"item": "rfrotors:nuggetchromel",
+		"data": 0,
+		"count": 9
+	}
+}

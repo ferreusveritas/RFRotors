@@ -1,0 +1,26 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"www",
+		"ttt",
+		"iii"
+	],
+	"key": {
+		"w": {
+			"type": "forge:ore_dict",
+			"ore": "dyeWhite"
+		},
+		"t": {
+			"type": "forge:ore_dict",
+			"ore": "ingotTin"
+		},
+		"i": {
+			"item": "rfrotors:ingotchromel"
+		}
+	},
+	"result": {
+		"item": "rfrotors:modernrotorblade",
+		"data": 0,
+		"count": 1
+	}
+}

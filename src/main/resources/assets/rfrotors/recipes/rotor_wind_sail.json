@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " b ",
+        "bgb",
+        " b "
+    ],
+    "key": {
+        "b": {
+            "item": "rfrotors:sailrotorblade"
+        },
+        "g": {
+			"item": "thermalfoundation:material",
+			"data": 291
+        }
+    },
+    "result": {
+        "item": "rfrotors:rfrotor",
+		"data": 0,
+        "count": 1
+    }
+}

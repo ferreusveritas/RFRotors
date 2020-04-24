@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"iii",
+		"bbb",
+		"www"
+	],
+	"key": {
+		"i": {
+			"item": "minecraft:iron_ingot"
+		},
+		"b": {
+			"item": "minecraft:iron_bars"
+		},
+		"w": {
+			"item": "minecraft:wool",
+			"data": 0
+		}
+	},
+	"result": {
+		"item": "rfrotors:sailrotorblade",
+		"data": 0,
+		"count": 1
+	}
+}

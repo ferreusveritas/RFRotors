@@ -1,8 +1,8 @@
 package com.ferreusveritas.rfrotors.tileentities;
 
 import com.ferreusveritas.rfrotors.ModBlocks;
+import com.ferreusveritas.rfrotors.ModConstants;
 import com.ferreusveritas.rfrotors.blocks.BlockRotor;
-import com.ferreusveritas.rfrotors.lib.Constants;
 import com.ferreusveritas.rfrotors.lib.EnergyPacket;
 import com.ferreusveritas.rfrotors.lib.ModConfiguration;
 
@@ -28,11 +28,11 @@ import net.minecraftforge.fluids.FluidRegistry;
 public class TileEntityWaterRotorBlock extends TileEntityRotorBlock {
 
 	private static String waterRotorResLocation = "models/waterrotor"; 
-	private static ResourceLocation waterRotorWoodTexture = new ResourceLocation(Constants.MODID, waterRotorResLocation + "wood.png");
-	private static ResourceLocation waterRotorIronTexture = new ResourceLocation(Constants.MODID, waterRotorResLocation + "iron.png");
+	private static ResourceLocation waterRotorWoodTexture = new ResourceLocation(ModConstants.MODID, waterRotorResLocation + "wood.png");
+	private static ResourceLocation waterRotorIronTexture = new ResourceLocation(ModConstants.MODID, waterRotorResLocation + "iron.png");
 	
 	private boolean wheelCW = false;
-	public static String publicName = "tileEntityWaterRotorBlock";
+	public static final String publicName = "tileEntityWaterRotorBlock";
 
 	public class FluidFlow {
 		public int pattern;
@@ -290,7 +290,7 @@ public class TileEntityWaterRotorBlock extends TileEntityRotorBlock {
 	
 	@Override
 	public ResourceLocation getModel() {
-		return new ResourceLocation(Constants.MODID, waterRotorResLocation + ".obj");
+		return new ResourceLocation(ModConstants.MODID, waterRotorResLocation + ".obj");
 	}
 	
 	/**

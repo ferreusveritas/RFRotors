@@ -1,7 +1,6 @@
 package com.ferreusveritas.rfrotors.util;
 
-import com.ferreusveritas.rfrotors.lib.Constants;
-
+import com.ferreusveritas.rfrotors.ModConstants;
 import net.minecraft.util.text.translation.I18n;
 
 /**
@@ -16,6 +15,6 @@ public class Lang {
      * @return Localized version of the string
      */
     public static String localize(String pText) {
-        return I18n.translateToLocal("info." + Constants.MODID + "." + pText);
+        return I18n.translateToLocal("info." + ModConstants.MODID + "." + pText);
     }
 }
