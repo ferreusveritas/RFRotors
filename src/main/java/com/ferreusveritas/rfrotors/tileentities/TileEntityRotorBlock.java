@@ -144,11 +144,15 @@ public abstract class TileEntityRotorBlock extends TileEntity implements ITickab
 				dv = dv / dfc;
 				if(rotorDir.getFrontOffsetZ() != 0){//Rotating on zAxis
 					int rot = rotorDir.getFrontOffsetZ();
-					entity.setVelocity(-du * 0.1, -dv * 0.1, rot * 0.02);
+					entity.motionX = -du * 0.1;
+					entity.motionY = -dv * 0.1;
+					entity.motionZ = rot * 0.02;
 					entity.addVelocity(dv * speed * rot * 0.05, -du * speed * rot * 0.05, speed * 0.0);
 				} else {//Rotating on xAxis
 					int rot = -rotorDir.getFrontOffsetX();
-					entity.setVelocity(rot * 0.02, -dv * 0.1, -du * 0.1);
+					entity.motionX = rot * 0.02;
+					entity.motionY = -dv * 0.1;
+					entity.motionZ = -du * 0.1;
 					entity.addVelocity(speed * 0.0, -du * speed * rot * 0.05, dv * speed * rot * 0.05);
 				}
 				if(speed > 4.0f && entity instanceof EntityLivingBase && ((world.getWorldTime() % 4) == 0)){
