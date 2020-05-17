@@ -123,7 +123,9 @@ public class BlockGenerator extends BlockDirectional implements ITileEntityProvi
 				}
 				else {
 					// Print energy information otherwise
-					printChatInfo(world, pos, player);
+					if(hand == EnumHand.MAIN_HAND) {
+						printChatInfo(world, pos, player);
+					}
 				}
 				
 				return true;
