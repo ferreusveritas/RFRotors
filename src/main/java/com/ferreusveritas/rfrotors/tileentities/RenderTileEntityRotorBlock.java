@@ -4,13 +4,12 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.lwjgl.opengl.GL11;
-
 import com.ferreusveritas.rfrotors.blocks.BlockRotor;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GlStateManager.CullFace;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -70,8 +69,8 @@ public class RenderTileEntityRotorBlock extends TileEntitySpecialRenderer<TileEn
 		
 		GlStateManager.translate(x, y, z);
 		
-		// Position the rotor on the centre of the face 
-		GL11.glTranslated(0.5f - (dir.getFrontOffsetX() * 0.5f), 0.5f, 0.5f - (dir.getFrontOffsetZ() * 0.5f));
+		// Position the rotor on the centre of the face
+		GlStateManager.translate(0.5f - (dir.getFrontOffsetX() * 0.5f), 0.5f, 0.5f - (dir.getFrontOffsetZ() * 0.5f));
 
 		//Now turn it the right way
 		int d = (((dir.ordinal() + 2) * 5) >> 1) & 3;//Convert EnumFacing ordinals 2,3,4,5 to factors 2,0,3,1 respectively
@@ -85,7 +84,7 @@ public class RenderTileEntityRotorBlock extends TileEntitySpecialRenderer<TileEn
 		
 		if(flipped){
 			GlStateManager.scale(-1.0f, 1.0f, 1.0f);
-			GL11.glFrontFace(GL11.GL_CW);
+			GlStateManager.cullFace(CullFace.FRONT);
 		}
 		
 		GlStateManager.disableLighting();
@@ -97,7 +96,7 @@ public class RenderTileEntityRotorBlock extends TileEntitySpecialRenderer<TileEn
 				1.0f, 1.0f, 1.0f);//R, G, B
 		
 		if(flipped){
-			GL11.glFrontFace(GL11.GL_CCW);
+			GlStateManager.cullFace(CullFace.BACK);
 		}
 		
 		GlStateManager.popMatrix();
@@ -136,7 +135,7 @@ public class RenderTileEntityRotorBlock extends TileEntitySpecialRenderer<TileEn
 		ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
 		builder.put("ambient", "false");//Also available: "gui3d", "flip-v"
 		model = model.process(builder.build());
-			
+		
 		return model.bake(
 			TRSRTransformation.identity(),
 			Attributes.DEFAULT_BAKED_FORMAT,
