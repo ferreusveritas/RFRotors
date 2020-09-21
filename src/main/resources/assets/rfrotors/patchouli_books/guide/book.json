@@ -1,0 +1,8 @@
+{
+	"name": "RF Rotors Manual",
+	"landing_text": "RF Rotors is a companion mod to the thermal series that provides new sources of RF energy through the power of wind and water.",
+	"version": 1,
+	"book_texture": "patchouli:textures/gui/book_gray.png",
+	"model": "patchouli:book_gray",
+	"show_progress": "false"
+}

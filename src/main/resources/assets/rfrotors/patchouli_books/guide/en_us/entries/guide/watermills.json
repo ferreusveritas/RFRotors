@@ -1,0 +1,18 @@
+{
+    "name": "Water Mills",
+    "icon": "rfrotors:rfrotor:2",
+    "category": "rotors",
+	"sortnum": "1",
+  "pages": [
+	{
+      "type": "text",
+      "title": "Water Mills",
+      "text": "These rotors require flowing water to function.$(br2)flowing water must pass over edge of the rotor so that the water fills the buckets which causes the Rotor to turn.$(br2)The rotor will not turn if water is passing over the supports or the middle."
+    },
+	{
+      "type": "crafting",
+      "recipe": "rfrotors:rotor_water_wood",
+      "recipe2": "rfrotors:rotor_water_metal"
+    }
+  ]
+} 

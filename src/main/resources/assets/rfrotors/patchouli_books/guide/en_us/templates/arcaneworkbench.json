@@ -1,0 +1,153 @@
+{
+	"components": [
+		{
+			"type": "header",
+			"text": "#title",
+			"x": -1,
+			"y": -1
+		},
+		{
+			"type": "image",
+			"image": "thaumcraft:textures/gui/gui_researchbook_overlay.png",
+			"width": "34",
+			"height": "34",
+			"u": "39",
+			"v": "5",
+			"texture_width": "512",
+			"texture_height": "512",
+			"x": 33,
+			"y": 10,
+			"scale": 0.8
+		},
+		{
+			"type": "image",
+			"image": "thaumcraft:textures/gui/gui_researchbook_overlay.png",
+			"width": "106",
+			"height": "106",
+			"u": "224",
+			"v": "30",
+			"texture_width": "512",
+			"texture_height": "512",
+			"x": 5,
+			"y": 40,
+			"scale": 0.8
+		},
+		{
+			"type": "text",
+			"text": "#vis",
+			"color": "02c0ac",
+			"x": 17,
+			"y": 15
+		},
+		{
+			"type": "text",
+			"text": "Vis",
+			"color": "02c0ac",
+			"x": 17,
+			"y": 22
+		},
+		{
+			"type": "item",
+			"item": "thaumcraft:crystal_essence#aer#{Aspects:[{key:'aer'}]}",
+			"x": 95,
+			"y": 15
+		},
+		{
+			"type": "item",
+			"item": "thaumcraft:crystal_essence#terra#{Aspects:[{key:'terra'}]}",
+			"x": 95,
+			"y": 32
+		},
+		{
+			"type": "item",
+			"item": "thaumcraft:crystal_essence#ignis#{Aspects:[{key:'ignis'}]}",
+			"x": 95,
+			"y": 49
+		},
+		{
+			"type": "item",
+			"item": "thaumcraft:crystal_essence#aqua#{Aspects:[{key:'aqua'}]}",
+			"x": 95,
+			"y": 66
+		},
+		{
+			"type": "item",
+			"item": "thaumcraft:crystal_essence#ordo#{Aspects:[{key:'ordo'}]}",
+			"x": 95,
+			"y": 83
+		},
+		{
+			"type": "item",
+			"item": "thaumcraft:crystal_essence#perditio#{Aspects:[{key:'perditio'}]}",
+			"x": 95,
+			"y": 100
+		},
+		{
+			"type": "item",
+			"item": "#output",
+			"x": 39,
+			"y": 15
+		},
+		{
+			"type": "item",
+			"item": "#slot1",
+			"x": 14,
+			"y": 48
+		},
+		{
+			"type": "item",
+			"item": "#slot2",
+			"x": 39,
+			"y": 48
+		},
+		{
+			"type": "item",
+			"item": "#slot3",
+			"x": 66,
+			"y": 48
+		},
+		{
+			"type": "item",
+			"item": "#slot4",
+			"x": 14,
+			"y": 73
+		},
+		{
+			"type": "item",
+			"item": "#slot5",
+			"x": 39,
+			"y": 73
+		},
+		{
+			"type": "item",
+			"item": "#slot6",
+			"x": 66,
+			"y": 73
+		},
+		{
+			"type": "item",
+			"item": "#slot7",
+			"x": 14,
+			"y": 99
+		},
+		{
+			"type": "item",
+			"item": "#slot8",
+			"x": 39,
+			"y": 99
+		},
+		{
+			"type": "item",
+			"item": "#slot9",
+			"x": 66,
+			"y": 99
+		},
+		{
+			"type": "text",
+			"text": "#text",
+			"x": 1,
+			"y": 125,
+			"max_width": 113
+		}
+	]
+}

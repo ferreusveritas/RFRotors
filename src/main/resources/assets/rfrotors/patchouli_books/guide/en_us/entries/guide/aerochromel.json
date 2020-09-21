@@ -1,0 +1,23 @@
+{
+    "name": "Aerochromel",
+    "icon": "rfrotors:dustchromel",
+    "category": "materials",
+	"sortnum": "1",
+  "pages": [
+	{
+      "type": "crafting",
+      "recipe": "rfrotors:dust_chromel",
+      "text": "Aerochromel is the material required to make Aerochromel Rotor blades. Aerochromel Blend can be made using the recipe above."
+    },
+	{
+      "type": "smelting",
+      "recipe": "rfrotors:dustchromel",
+      "text": "Once you have Aerochromel Blend, you must then use a furnace (or equivalent) to turn it into an ingot. It's now ready to be used to make an Aerochromel Rotor Blade."
+    },
+	{
+      "type": "crafting",
+      "recipe": "rfrotors:nugget_chromel",
+      "text": "Aerochromel ingots can also be turned into nuggets. They currently serve no purpose and exist purely for continuity reasons."
+    }
+  ]
+} 

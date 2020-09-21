@@ -1,0 +1,18 @@
+{
+    "name": "Sail Rotor",
+    "icon": "rfrotors:rfrotor",
+    "category": "rotors",
+	"sortnum": "2",
+  "pages": [
+	{
+      "type": "text",
+      "title": "Sail Rotor",
+      "text": "This is a wind powered rotor which will turn when in open air.$(br2)The placement of the Rotor is important, open space and height is taken into account for efficiency.$(br2)Sail rotors are a two part recipe, first requiring you you craft sails before crafting the Rotor."
+    },
+	{
+      "type": "crafting",
+      "recipe": "rfrotors:rotor_blade_sail",
+      "recipe2": "rfrotors:rotor_wind_sail"
+    }
+  ]
+} 

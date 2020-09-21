@@ -1,0 +1,19 @@
+{
+    "name": "Aerochromel Rotor",
+    "icon": "rfrotors:rfrotor:1",
+    "category": "rotors",
+	"sortnum": "3",
+  "pages": [
+	{
+      "type": "text",
+      "title": "Aerochromel Rotor",
+      "text": "This is a far more efficient version of the Sail rotor, this rotor can spin a lot faster in the right conditions thus generating more energy. $(br2)Be careful, if the rotor is spinning fast enough, the force of the rotor could kill you instantly. $(br2)This rotor requires Aerochromel ingots to create its sails."
+    },
+	{
+      "type": "crafting",
+      "title": "Blade & Rotor Recipe",
+      "recipe": "rfrotors:rotor_blade_modern",
+      "recipe2": "rfrotors:rotor_wind_modern"
+    }
+  ]
+} 

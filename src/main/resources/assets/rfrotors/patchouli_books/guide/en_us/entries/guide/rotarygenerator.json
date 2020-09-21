@@ -1,0 +1,14 @@
+{
+    "name": "Rotary Generator",
+    "icon": "rfrotors:generatorblock",
+    "category": "gettingstarted",
+	"sortnum": "1",
+  "pages": [
+	{
+      "type": "crafting",
+      "title": "Getting Started",
+      "recipe": "rfrotors:generator",
+      "text": "All rotors require a Rotary Generator to function.$(br)The rotor is attached to the side with the hole in it, whilst the RF output is hooked up to the opposite side."
+    }
+  ]
+} 
